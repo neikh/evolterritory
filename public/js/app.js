@@ -1840,15 +1840,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     console.log('Component mounted.');
-  }
+  } //     methods: {
+  //         showpic (){
+  //             axios.get('https://api.nasa.gov/planetary/earth/imagery?lon=100.75&lat=1.5&date=2014-02-01&cloud_score=True&api_key=E1aIhD19fZTNdDXovZqz8Hfpig4Y99J6yFYhgrpl')
+  //                     .then(response => {
+  //                         console.log(response.data);
+  //                 })
+  //         }
+  //     },
+  //     created(){
+  //         document.getElementById("test").addEventListener('click', () => {
+  //             this.showPic();
+  //         });
+  //     }
+
 });
 
 /***/ }),
@@ -37243,23 +37251,29 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-8" }, [
-          _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _vm._v("Example Component Post")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _vm._v(
-                "\n                    I'm an example component.\n                "
-              )
-            ])
-          ])
-        ])
-      ])
-    ])
+    return _c(
+      "div",
+      { staticClass: "w-75 border mx-auto", attrs: { id: "post-container" } },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "border mx-auto col-5 custom-control-inline",
+            attrs: { id: "single-left" }
+          },
+          [_vm._v("\n        left\n    ")]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "border mx-auto col-5 custom-control-inline",
+            attrs: { id: "single-right" }
+          },
+          [_vm._v("\n        right\n    ")]
+        )
+      ]
+    )
   }
 ]
 render._withStripped = true
