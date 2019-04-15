@@ -26,8 +26,12 @@
                 <input type="longitude" class="form-control" id="inputLongitude" placeholder="Longitude">
             </div>
             <div class="form-group col-md-6">
-                <label for="inputLongitude">Longitude</label>
-                <input type="date" class="form-control" id="inputLongitude" placeholder="Longitude">
+                <label for="inputDate1">Date 1</label>
+                <input type="date" class="form-control" id="inputDate1">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputDate2">Date 2</label>
+                <input type="date" class="form-control" id="inputDate1">
             </div>
         </div>
     </div>
