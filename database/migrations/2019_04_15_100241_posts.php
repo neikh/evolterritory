@@ -20,6 +20,7 @@ class Posts extends Migration
 			$table->integer('id_pic_2');
 			$table->string('titre');
 			$table->string('description');
+			$table->integer('nb_vote');
 			$table->timestamps();
 		});
     }
