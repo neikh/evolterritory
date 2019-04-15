@@ -1,12 +1,10 @@
 <template>
     <div class="container">
+        <h1>Bienvenue</h1>
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">Example Component Home</div>
-
-                    <div class="card-body">
-                        I'm an example component.
+                        <img class="img-fluid" src="https://apod.nasa.gov/apod/image/1904/JupiterDolphin_JunoEichstadt_1080.jpg" alt="">
                     </div>
                 </div>
             </div>
