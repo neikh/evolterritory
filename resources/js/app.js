@@ -22,7 +22,9 @@ Vue.use(VueResource);
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 Vue.http.headers.common['X-CSRF-TOKEN'] = document.head.querySelector('meta[name="csrf-token"]').content;
-Vue.component('index', require('./components/Index.vue').default);
+Vue.component('app', require('./components/App.vue').default);
+Vue.component('flow', require('./components/Flow.vue').default);
+Vue.component('post', require('./components/Post.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -32,4 +34,12 @@ Vue.component('index', require('./components/Index.vue').default);
 
 const app = new Vue({
     el: '#app'
+});
+
+const flow = new Vue({
+    el: '#flow'
+});
+
+const post = new Vue({
+    el: '#post'
 });
