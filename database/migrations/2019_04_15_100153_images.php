@@ -20,7 +20,7 @@ class Images extends Migration
 			$table->timestamp('date');
 			$table->string('description');
 			$table->timestamps();
-		}
+		});
     }
 
     /**

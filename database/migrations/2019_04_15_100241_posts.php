@@ -21,7 +21,7 @@ class Posts extends Migration
 			$table->string('titre');
 			$table->string('description');
 			$table->timestamps();
-		}
+		});
     }
 
     /**
