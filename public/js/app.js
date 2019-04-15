@@ -1879,7 +1879,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     console.log('Component mounted.');
-  }
+  } //     methods: {
+  //         showpic (){
+  //             axios.get('https://api.nasa.gov/planetary/earth/imagery?lon=100.75&lat=1.5&date=2014-02-01&cloud_score=True&api_key=E1aIhD19fZTNdDXovZqz8Hfpig4Y99J6yFYhgrpl')
+  //                     .then(response => {
+  //                         console.log(response.data);
+  //                 })
+  //         }
+  //     },
+  //     created(){
+  //         document.getElementById("test").addEventListener('click', () => {
+  //             this.showPic();
+  //         });
+  //     }
+
 });
 
 /***/ }),
@@ -37295,73 +37308,8 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "form-group col-md-12" }, [
-          _c("label", { attrs: { for: "inputAdresse" } }, [_vm._v("Adresse")]),
-          _vm._v(" "),
-          _c("input", {
-            staticClass: "form-control",
-            attrs: { id: "inputAdresse", placeholder: "Adresse" }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group col-md-6" }, [
-          _c("label", { attrs: { for: "inputlatitude" } }, [
-            _vm._v("Latitude")
-          ]),
-          _vm._v(" "),
-          _c("input", {
-            staticClass: "form-control",
-            attrs: { type: "latitude", id: "latitude", placeholder: "Latitude" }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group col-md-6" }, [
-          _c("label", { attrs: { for: "inputLongitude" } }, [
-            _vm._v("Longitude")
-          ]),
-          _vm._v(" "),
-          _c("input", {
-            staticClass: "form-control",
-            attrs: {
-              type: "longitude",
-              id: "inputLongitude",
-              placeholder: "Longitude"
-            }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group col-md-6" }, [
-          _c("label", { attrs: { for: "inputLongitude" } }, [
-            _vm._v("Longitude")
-          ]),
-          _vm._v(" "),
-          _c("input", {
-            staticClass: "form-control",
-            attrs: {
-              type: "date",
-              id: "inputLongitude",
-              placeholder: "Longitude"
-            }
-          })
-        ])
-      ])
-    ])
-  }
-]
-render._withStripped = true
+var render = function () {}
+var staticRenderFns = []
 
 
 
@@ -51409,13 +51357,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-<<<<<<< HEAD
 __webpack_require__(/*! /home/niter/lalala/evolterritory/resources/js/app.js */"./resources/js/app.js");
 module.exports = __webpack_require__(/*! /home/niter/lalala/evolterritory/resources/sass/app.scss */"./resources/sass/app.scss");
-=======
-__webpack_require__(/*! /home/pi/evolterritory/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/pi/evolterritory/resources/sass/app.scss */"./resources/sass/app.scss");
->>>>>>> fa3683dbb236908573c8a42bbafc726b5a1bd932
 
 
 /***/ }),
