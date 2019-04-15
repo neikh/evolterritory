@@ -13,13 +13,15 @@ class Posts extends Migration
      */
     public function up()
     {
-        $table->bigIncrements('id');
-        $table->integer('id_author');
-        $table->integer('id_pic_1');
-        $table->integer('id_pic_2');
-        $table->string('titre');
-        $table->string('description');
-        $table->timestamps();
+		Schema::create('posts', function (Blueprint $table) {
+			$table->bigIncrements('id');
+			$table->integer('id_author');
+			$table->integer('id_pic_1');
+			$table->integer('id_pic_2');
+			$table->string('titre');
+			$table->string('description');
+			$table->timestamps();
+		}
     }
 
     /**

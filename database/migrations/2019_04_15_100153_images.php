@@ -13,12 +13,14 @@ class Images extends Migration
      */
     public function up()
     {
-        $table->bigIncrements('id');
-        $table->integer('id_author');
-        $table->string('filename')->unique();
-        $table->timestamp('date');
-        $table->string('description');
-        $table->timestamps();
+		Schema::create('images', function (Blueprint $table) {
+			$table->bigIncrements('id');
+			$table->integer('id_author');
+			$table->string('filename')->unique();
+			$table->timestamp('date');
+			$table->string('description');
+			$table->timestamps();
+		}
     }
 
     /**
