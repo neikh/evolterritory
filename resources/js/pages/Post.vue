@@ -1,11 +1,19 @@
 <template>
     <div class="container">
 
+        <div class="row justify-content-center">
+            <button v-on:click="switchImages()" type="button">Switch images</button>
+        </div>
+
         <image-compare class="img-fluid" :before="before" :after="after" :padding="{ left: 50, right: 50 }">
             <i class="fa fa-angle-left" aria-hidden="true" slot="icon-left"></i>
             <i class="fa fa-angle-right" aria-hidden="true" slot="icon-right"></i>
         </image-compare>
 
+        <div class="row justify-content-center">
+            <button v-on:click="switchImages()" type="button">Switch images</button>
+        </div>
+        
         <div class="row justify-content-center">
             <div class="form-group col-md-12">
                 <label for="inputAdresse">Adresse</label>
@@ -73,6 +81,12 @@
                 })
 
                 return response.data.url;
+            },
+
+            async switchImages(){
+                let img = this.before;
+                this.before = this.after;
+                this.after = img;
             }
         }
         //https://api.nasa.gov/planetary/earth/imagery/?lon=5.7357819&lat=45.1875602&date=2019-02-01&cloud_score=True&api_key=f8Bf5QWZSK50tRZOZq7BCuHCpICDTqs62MPmG9xt
