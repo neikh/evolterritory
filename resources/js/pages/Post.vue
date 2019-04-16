@@ -1,18 +1,10 @@
 <template>
     <div class="container">
-        <!-- <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">Example Component Post</div>
 
-                    <div class="card-body">
-                        I'm an example component.
-                    </div>
-                </div>
-            </div>
-        </div> -->
-
-        <image-compare :before="before" :after="after"/>
+        <image-compare class="img-fluid" :before="before" :after="after" :padding="{ left: 50, right: 50 }">
+            <i class="fa fa-angle-left" aria-hidden="true" slot="icon-left"></i>
+            <i class="fa fa-angle-right" aria-hidden="true" slot="icon-right"></i>
+        </image-compare>
 
         <div class="row justify-content-center">
             <div class="form-group col-md-12">
