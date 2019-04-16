@@ -13,7 +13,7 @@
             </div>
             <div class="form-group col-md-6">
                 <label for="inputlatitude">Latitude</label>
-                <input type="latitude" class="form-control" id="latitude" placeholder="Latitude">
+                <input type="latitude" class="form-control" id="inputLatitude" placeholder="Latitude">
             </div>
             <div class="form-group col-md-6">
                 <label for="inputLongitude">Longitude</label>
@@ -25,8 +25,9 @@
             </div>
             <div class="form-group col-md-6">
                 <label for="inputDate2">Date 2</label>
-                <input type="date" class="form-control" id="inputDate1">
+                <input type="date" class="form-control" id="inputDate2">
             </div>
+            <button v-on:click="sub()" type="button" name="button">aaa</button>
         </div>
     </div>
 </template>
@@ -41,6 +42,17 @@
         },
         mounted() {
 
+        },
+        methods:{
+          sub(){
+            console.log(document.getElementById('inputLatitude').value);
+            console.log(document.getElementById('inputLongitude').value);
+            let latitude = document.getElementById('inputLatitude').value;
+            let longitude = document.getElementById('inputLongitude').value;
+            let date1 = document.getElementById('inputDate1').value
+            let date2 = document.getElementById('inputDate2').value
+          }
         }
+        https://api.nasa.gov/planetary/earth/imagery/?lon=5.7357819&lat=45.1875602&date=2019-02-01&cloud_score=True&api_key=f8Bf5QWZSK50tRZOZq7BCuHCpICDTqs62MPmG9xt
      }
 </script>
