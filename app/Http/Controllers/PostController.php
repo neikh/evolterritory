@@ -34,7 +34,6 @@ class PostController extends Controller
      */
     public function store()
     {
-        return view('post');
+         return ['vooila','lalala'];
     }
 }
-

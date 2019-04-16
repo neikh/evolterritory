@@ -27,12 +27,12 @@ class FlowController extends Controller
         $hotPosts = \App\Post::orderBy('nb_vote', 'desc')
                ->take(10)
                ->get();
-               
+
         //récupérer les 10 derniers post par date
         $newPosts = \App\Post::orderBy('created_at', 'desc')
                ->take(10)
                ->get();
-        
+
         return view('flow', array(
 			'hotPosts' => $hotPosts,
 			'newPosts' => $newPosts

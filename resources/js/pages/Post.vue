@@ -1,17 +1,5 @@
 <template>
     <div class="container">
-        <!-- <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">Example Component Post</div>
-
-                    <div class="card-body">
-                        I'm an example component.
-                    </div>
-                </div>
-            </div>
-        </div> -->
-
         <image-compare :before="before" :after="after"/>
 
         <div class="row justify-content-center">
@@ -50,21 +38,5 @@
         mounted() {
 
         }
-
-    //     methods: {
-    //         showpic (){
-    //             axios.get('https://api.nasa.gov/planetary/earth/imagery?lon=100.75&lat=1.5&date=2014-02-01&cloud_score=True&api_key=E1aIhD19fZTNdDXovZqz8Hfpig4Y99J6yFYhgrpl')
-    //                     .then(response => {
-    //                         console.log(response.data);
-    //                 })
-    //         }
-    //     },
-
-    //     created(){
-    //         document.getElementById("test").addEventListener('click', () => {
-    //             this.showPic();
-    //         });
-    //     }
      }
 </script>
-
