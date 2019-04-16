@@ -61,7 +61,17 @@
 
             async getImage(latitude, longitude, date){
 
-                let response = await axios.get('https://api.nasa.gov/planetary/earth/imagery/?lon='+longitude+'&lat='+latitude+'&date='+date+'&dim=0.1&cloud_score=True&api_key=f8Bf5QWZSK50tRZOZq7BCuHCpICDTqs62MPmG9xt')
+                let response = await axios.get('https://api.nasa.gov/planetary/earth/imagery/' , {
+                    params: {
+                        lon: longitude,
+                        lat: latitude,
+                        date: date,
+                        dim: 0.1,
+                        cloud_score: 'True',
+                        api_key: 'f8Bf5QWZSK50tRZOZq7BCuHCpICDTqs62MPmG9xt'
+                    }
+                })
+
                 return response.data.url;
             }
         }
