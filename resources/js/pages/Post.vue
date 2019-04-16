@@ -13,11 +13,11 @@
             </div>
             <div class="form-group col-md-6">
                 <label for="inputlatitude">Latitude</label>
-                <input type="latitude" class="form-control" id="inputLatitude" value="30">
+                <input type="latitude" class="form-control" id="inputLatitude" value="25">
             </div>
             <div class="form-group col-md-6">
                 <label for="inputLongitude">Longitude</label>
-                <input type="longitude" class="form-control" id="inputLongitude" value="78">
+                <input type="longitude" class="form-control" id="inputLongitude" value="40">
             </div>
             <div class="form-group col-md-6">
                 <label for="inputDate1">Date 1</label>
