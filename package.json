@@ -26,6 +26,7 @@
     },
     "dependencies": {
         "browser-sync": "^2.26.3",
+        "vue-image-compare": "^0.6.1",
         "vue-resource": "^1.5.1"
     }
 }

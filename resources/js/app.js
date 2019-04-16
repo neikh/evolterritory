@@ -1,6 +1,10 @@
 import Vue from 'vue'
 import routes from './routes'
 
+import VueImageCompare from 'vue-image-compare';
+
+Vue.use(VueImageCompare);
+
 require('./bootstrap');
 
 /**

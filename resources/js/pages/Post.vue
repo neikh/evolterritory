@@ -12,6 +12,8 @@
             </div>
         </div> -->
 
+        <image-compare :before="before" :after="after"/>
+
         <div class="row justify-content-center">
             <div class="form-group col-md-12">
                 <label for="inputAdresse">Adresse</label>
@@ -39,8 +41,14 @@
 
 <script>
     export default {
+        data () {
+            return {
+                before: './img/before.jpg',
+                after: './img/after.jpg'
+            }
+        },
         mounted() {
-            console.log('Component mounted.')
+
         }
 
     //     methods: {
