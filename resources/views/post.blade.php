@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div id = "post">
-    <post></post>
+<div id = "index">
+    <index></index>
 </div>
 @endsection

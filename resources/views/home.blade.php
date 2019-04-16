@@ -21,7 +21,7 @@
     </div>
 </div> --}}
 
-<div id = "app">
-    <app></app>
+<div id = "index">
+    <index></index>
 </div>
 @endsection

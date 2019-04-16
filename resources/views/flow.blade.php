@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div id = "flow">
-    <flow></flow>
+<div id = "index">
+    <index></index>
 </div>
 @endsection

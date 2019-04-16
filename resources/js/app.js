@@ -1,15 +1,7 @@
-
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
+import Vue from 'vue'
+import routes from './routes'
 
 require('./bootstrap');
-
-window.Vue = require('vue');
-var VueResource = require('vue-resource');
-Vue.use(VueResource);
 
 /**
  * The following block of code may be used to automatically register your
@@ -21,10 +13,7 @@ Vue.use(VueResource);
 
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
-Vue.http.headers.common['X-CSRF-TOKEN'] = document.head.querySelector('meta[name="csrf-token"]').content;
-Vue.component('app', require('./components/App.vue').default);
-Vue.component('flow', require('./components/Flow.vue').default);
-Vue.component('post', require('./components/Post.vue').default);
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -32,14 +21,24 @@ Vue.component('post', require('./components/Post.vue').default);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-const app = new Vue({
-    el: '#app'
+ console.log(window.location.pathname);
+
+const index = new Vue({
+    el: '#index',
+    data: {
+        currentRoute: window.location.pathname
+    },
+    computed: {
+        ViewComponent () {
+
+            const matchingView = routes[this.currentRoute]
+            return matchingView
+              ? require('./pages/' + matchingView).default
+              : require('./pages/404.vue')
+          }
+    },
+    render (h) {
+        return h(this.ViewComponent)
+      }
 });
 
-const flow = new Vue({
-    el: '#flow'
-});
-
-const post = new Vue({
-    el: '#post'
-});
