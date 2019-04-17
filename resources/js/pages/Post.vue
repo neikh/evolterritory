@@ -13,7 +13,7 @@
         <div class="row justify-content-center">
             <button v-on:click="switchImages()" type="button">Switch images</button>
         </div>
-        
+
         <div class="row justify-content-center">
             <div class="form-group col-md-12">
                 <label for="inputAdresse">Adresse</label>
