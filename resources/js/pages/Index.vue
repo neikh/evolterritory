@@ -1,5 +1,8 @@
 <template>
     <div class="container">
+        <div id="loading" class="fixed-top d-none">
+            <vue-loader direction="top-right" image="https://loading.io/spinners/coolors/lg.palette-rotating-ring-loader.gif" text="Chargement..." text-color="#786fa6" :background="'#ea8685'" />
+        </div>
         <h1>Bienvenue</h1>
         <div class="row justify-content-center">
             <div class="col-md-12">
@@ -15,7 +18,11 @@
 </template>
 
 <script>
+    import vueLoader from '@nulldreams/vue-loading/src/vue-loading'
     export default {
+        components: {
+            vueLoader
+        },
        data () {
             return {
                 before: './img/before.jpg',
@@ -39,9 +46,13 @@
                 this.before = await response.data;
             }
         },
-        mounted() {
+        async mounted() {
+           document.getElementById('loading').classList.remove("d-none");
+
            this.apod();
-           this.randomPic();
+           await this.randomPic();
+
+           document.getElementById('loading').classList.add("d-none");
         }
     }
 </script>

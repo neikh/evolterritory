@@ -31,6 +31,7 @@
         "vue-template-compiler": "^2.4.4"
     },
     "dependencies": {
+        "@nulldreams/vue-loading": "0.0.1",
         "browser-sync": "^2.26.3",
         "vue-image-compare": "^0.6.1",
         "vue-resource": "^1.5.1"

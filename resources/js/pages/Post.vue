@@ -1,5 +1,8 @@
 <template>
     <div class="container-fluid">
+        <div id="loading" class="fixed-top d-none">
+            <vue-loader direction="top-right" image="https://loading.io/spinners/coolors/lg.palette-rotating-ring-loader.gif" text="Chargement..." text-color="#786fa6" :background="'#ea8685'" />
+        </div>
         <div class="row ">
             <nav class="col-md-2 d-none d-md-block bg-light sidebar ">
                 <div class="row justify-content-center">
@@ -36,13 +39,16 @@
                     <i class="fa fa-angle-right" aria-hidden="true" slot="icon-right"></i>
                 </image-compare>
             </div>
-
         </div>
     </div>
 </template>
 
 <script>
+    import vueLoader from '@nulldreams/vue-loading/src/vue-loading'
     export default {
+        components: {
+            vueLoader
+        },
         data () {
             return {
                 before: './img/before.jpg',
@@ -56,15 +62,21 @@
         methods:{
             async sub(){
 
+                document.getElementById('loading').classList.remove("d-none");
+
                 let latitude = document.getElementById('inputLatitude').value;
                 let longitude = document.getElementById('inputLongitude').value;
 
                 let date1 = document.getElementById('inputDate1').value;
                 let img1 = this.getImage(latitude, longitude, date1);
+
                 let date2 = document.getElementById('inputDate2').value;
                 let img2 = this.getImage(latitude, longitude, date2);
+
                 this.before = await img1;
                 this.after = await img2;
+
+                document.getElementById('loading').classList.add("d-none");
             },
 
             async getImage(latitude, longitude, date){
@@ -80,7 +92,6 @@
                     }
                 })
 
-                console.log(response.data.url);
                 return response.data.url;
             },
 
