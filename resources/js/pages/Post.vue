@@ -76,6 +76,11 @@
                 this.before = await img1;
                 this.after = await img2;
 
+                let upload1 = this.storePic(this.before);
+                let upload2 = this.storePic(this.after);
+
+                await upload1;
+                await upload2;
                 document.getElementById('loading').classList.add("d-none");
             },
 
@@ -93,6 +98,16 @@
                 })
 
                 return response.data.url;
+            },
+
+            async storePic(picture){
+
+                let question = await axios.post('/save' , {
+                    params: {
+                        file: picture
+                    }
+                })
+                return true;
             },
 
             switchImages(){

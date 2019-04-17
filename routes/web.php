@@ -13,7 +13,8 @@
 
 Auth::routes();
 
-Route::get('/grab', 'HomeController@getPic');
 Route::get('/', 'HomeController@index');
+Route::get('/grab', 'HomeController@getPic');
+Route::post('/save', 'ImageController@store');
 Route::get('/flow', 'FlowController@index');
 Route::get('/post', 'PostController@index');
