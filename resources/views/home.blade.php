@@ -2,9 +2,8 @@
 
 @section('content')
 
-    {!! json_encode($picture) !!}
-
+{{$picture}}
 <div id = "index">
-    <index></index>
+    <index v-bind:randomPic="'bobobo'"></index>
 </div>
 @endsection

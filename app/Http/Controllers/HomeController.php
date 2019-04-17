@@ -29,10 +29,10 @@ class HomeController extends Controller
         $files = \Storage::disk('randomPictures')->files();
 
         //On choisi une image random dans le dossier
-        $pic = mt_rand(0, count($files));
+        $pic = mt_rand(0, count($files)-1);
 
         return view('home',[
-            'picture' => $files[$pic]
+            'picture' => 'storage/random/'.$files[$pic]
         ]);
 
     }

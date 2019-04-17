@@ -4,8 +4,11 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <survey-component :picture="'{!! json_decode($picture) !!}'"></survey-component>
-                    <img class="img-fluid" src='{!! json_decode($picture) !!}'/>
+                    a{{randomPic}}a
+                   <!-- <image-compare class="img-fluid" :before="before" :after="after" :padding="{ left: 50, right: 50 }">
+                        <i class="fa fa-angle-left" aria-hidden="true" slot="icon-left"></i>
+                        <i class="fa fa-angle-right" aria-hidden="true" slot="icon-right"></i>
+                    </image-compare> -->
                 </div>
             </div>
         </div>
@@ -14,9 +17,9 @@
 
 <script>
     export default {
-        props: ['picture'],
+        props: ['randomPic'],
         mounted() {
-            console.log('Component mounted.')
+            console.log(this)
         }
     }
 </script>
