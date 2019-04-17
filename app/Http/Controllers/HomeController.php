@@ -23,8 +23,17 @@ class HomeController extends Controller
      */
     public function index()
     {
-        //Génére un post a partir de l'image of the day de la nasa (API) et une autre aléatoire
 
-        return view('home');
+        //on va récupérer toutes les images dans le dossier storage/app/public/random
+        //randomPictures est un driver crée dans config/filesystems.php qui renvoie sur le bon répertoire
+        $files = \Storage::disk('randomPictures')->files();
+
+        //On choisi une image random dans le dossier
+        $pic = mt_rand(0, count($files));
+
+        return view('home',[
+            'picture' => $files[$pic]
+        ]);
+
     }
 }

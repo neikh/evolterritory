@@ -4,7 +4,8 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                        <img class="img-fluid" src="https://apod.nasa.gov/apod/image/1904/JupiterDolphin_JunoEichstadt_1080.jpg" alt="">
+                    <survey-component :picture="'{!! json_decode($picture) !!}'"></survey-component>
+                    <img class="img-fluid" src='{!! json_decode($picture) !!}'/>
                 </div>
             </div>
         </div>
@@ -13,6 +14,7 @@
 
 <script>
     export default {
+        props: ['picture'],
         mounted() {
             console.log('Component mounted.')
         }
