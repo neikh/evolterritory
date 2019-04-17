@@ -24,6 +24,13 @@ class HomeController extends Controller
     public function index()
     {
 
+        return view('home');
+
+    }
+
+    public function getPic()
+    {
+
         //on va récupérer toutes les images dans le dossier storage/app/public/random
         //randomPictures est un driver crée dans config/filesystems.php qui renvoie sur le bon répertoire
         $files = \Storage::disk('randomPictures')->files();
@@ -31,9 +38,7 @@ class HomeController extends Controller
         //On choisi une image random dans le dossier
         $pic = mt_rand(0, count($files)-1);
 
-        return view('home',[
-            'picture' => 'storage/random/'.$files[$pic]
-        ]);
+        return 'storage/random/'.$files[$pic];
 
     }
 }

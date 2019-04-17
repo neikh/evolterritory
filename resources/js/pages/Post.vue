@@ -83,7 +83,7 @@
                 return response.data.url;
             },
 
-            async switchImages(){
+            switchImages(){
                 let img = this.before;
                 this.before = this.after;
                 this.after = img;

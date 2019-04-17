@@ -7,7 +7,6 @@ Vue.use(VueImageCompare);
 
 require('./bootstrap');
 
-console.log(Vue.http);
 const index = new Vue({
     el: '#index',
     data: {
