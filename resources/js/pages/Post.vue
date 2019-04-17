@@ -27,7 +27,7 @@
                 <label for="inputDate2">Date 2</label>
                 <input type="date" class="form-control" id="inputDate2" value="2015-02-01">
             </div>
-            <button v-on:click="sub()" type="button" name="button">aaa</button>
+            <button v-on:click="sub()" type="button" name="button">Chercher</button>
         </div>
     </div>
 </template>
@@ -46,17 +46,16 @@
 
         methods:{
             async sub(){
-                console.log(document.getElementById('inputLatitude').value);
-                console.log(document.getElementById('inputLongitude').value);
+
                 let latitude = document.getElementById('inputLatitude').value;
                 let longitude = document.getElementById('inputLongitude').value;
 
                 let date1 = document.getElementById('inputDate1').value;
-                let img1 = await this.getImage(latitude, longitude, date1);
+                let img1 = this.getImage(latitude, longitude, date1);
                 let date2 = document.getElementById('inputDate2').value;
-                let img2 = await this.getImage(latitude, longitude, date2);
-                this.before = img1;
-                this.after = img2;
+                let img2 = this.getImage(latitude, longitude, date2);
+                this.before = await img1;
+                this.after = await img2;
             },
 
             async getImage(latitude, longitude, date){
@@ -72,9 +71,9 @@
                     }
                 })
 
+                console.log(response.data.url);
                 return response.data.url;
             }
         }
-        //https://api.nasa.gov/planetary/earth/imagery/?lon=5.7357819&lat=45.1875602&date=2019-02-01&cloud_score=True&api_key=f8Bf5QWZSK50tRZOZq7BCuHCpICDTqs62MPmG9xt
      }
 </script>
