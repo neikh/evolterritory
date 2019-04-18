@@ -72,6 +72,8 @@
 
 <script>
     import vueLoader from '@nulldreams/vue-loading/src/vue-loading';
+    import { Settings } from 'luxon';
+    Settings.defaultLocale = 'en';
     export default {
         components: {
             vueLoader
@@ -183,13 +185,14 @@
             },
 
             dateRefactor(date){
-                let months = ['janv.','févr.','mar.','avr.','mai','juin','juil.','août','sep.','oct.','nov.','dec.'];
+                let months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
                 let organize = date.split(' ');
-                let day = organize[0];
-                let month = organize[1];
+                let day = organize[1];
+                let month = organize[0];
                 let year = organize[2];
 
+                day = day.slice(0, -1);
                 day = (day < 10 ? '0'+day : day);
 
                 for (let i = 0; i < months.length; i++){
