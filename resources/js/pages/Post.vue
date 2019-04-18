@@ -39,7 +39,14 @@
                         <label for="inputDate2">Date 2</label>
                         <input type="date" class="form-control" id="inputDate2" value="2015-02-01">
                     </div>
-                    <button v-on:click="sub()" type="button" name="button" class="btn btn-dark">Chercher</button>
+                    <div class="form-group col-md-12">
+                        <label for="formControlRange">Example Range input</label>
+                        <input type="range" class="form-control-range" id="formControlRange">
+                    </div>
+                    <div class="row justify-content-center">
+                        <button v-on:click="sub()" type="button" name="button" class="btn btn-dark">Chercher</button>
+                    </div>
+
                 </div>
                 <br>
                 <div class="row justify-content-center">
