@@ -6,10 +6,23 @@
         <div class="row ">
             <nav class="col-md-2 d-none d-md-block bg-light sidebar ">
                 <div class="row justify-content-center">
-                    <div class="form-group col-md-12">
-                        <label for="inputAdresse">Adresse</label>
-                        <input class="form-control" id="inputAdresse" placeholder="Adresse">
+                    <div class=" Adresse">
+                        <div class="form-group col-md-12">
+                            <label for="inputAdresse">Adresse</label>
+                            <input class="form-control" id="inputAdresse" placeholder="Adresse">
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="inputVille">Ville</label>
+                            <input class="form-control" id="inputVille" placeholder="Ville">
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="inputCodePostal">Code postal</label>
+                            <input class="form-control" id="inputCodePostal" placeholder="Code postal">
+                        </div>
                     </div>
+
+
+
                     <div class="form-group col-md-6">
                         <label for="inputlatitude">Latitude</label>
                         <input type="latitude" class="form-control" id="inputLatitude" value="25">
