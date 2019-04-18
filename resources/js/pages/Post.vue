@@ -87,6 +87,20 @@
                 let latitude = document.getElementById('inputLatitude').value;
                 let longitude = document.getElementById('inputLongitude').value;
 
+                // if no latitude or longitude has been given, use those from the address
+                if (!latitude || !longitude){
+                    let street = document.getElementById('inputAdresse').value;
+                    let city = document.getElementById('inputVille').value;
+                    let postalCode = document.getElementById('inputCodePostal').value;
+
+                    let coordinates = await this.geocoding(street, city, postalCode);
+
+                    console.log(coordinates);
+
+                    latitude = coordinates[0];
+                    longitude = coordinates[1];
+                }
+
                 let date1 = document.getElementById('inputDate1').value;
                 let img1 = this.getImage(latitude, longitude, date1);
 
@@ -115,7 +129,7 @@
                         cloud_score: 'True',
                         api_key: 'f8Bf5QWZSK50tRZOZq7BCuHCpICDTqs62MPmG9xt'
                     }
-                })
+                });
 
                 return response.data.url;
             },
@@ -134,6 +148,20 @@
                 let img = this.before;
                 this.before = this.after;
                 this.after = img;
+            },
+            
+            async geocoding(street = "", city = "", postalCode = ""){ // turns an address into coordinates
+                let query = street+", "+city+", "+postalCode;
+                let response = await axios.get('https://nominatim.openstreetmap.org/search' , {
+                    params: {
+                        format: "json",
+                        q: query
+                    }
+                });
+
+                let coordinates = [response.data[0].lat, response.data[0].lon];
+
+                return coordinates;
             }
         }
      }
