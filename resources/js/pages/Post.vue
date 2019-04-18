@@ -3,6 +3,7 @@
         <div id="loading" class="fixed-top d-none">
             <vue-loader direction="top-right" image="https://loading.io/spinners/coolors/lg.palette-rotating-ring-loader.gif" text="Chargement..." text-color="#786fa6" :background="'#ea8685'" />
         </div>
+        
         <div class="row ">
             <nav class="col-md-2 d-none d-md-block bg-light sidebar ">
                 <div class="row justify-content-center">
@@ -52,9 +53,15 @@
                 <div class="row justify-content-center">
                     <button v-on:click="switchImages()" type="button" class="btn btn-dark">Switch images</button>
                 </div>
+                <br>
+
+                <!-- affiche un choix si plusieurs résultats ont été trouvés -->
+                <div id="select" class="row justify-content-center">
+                </div>
+                
             </nav>
             <div class="col-md-9 ml-sm-auto col-lg-10 px-4">
-                <image-compare class="img-fluid" :before="before" :after="after" :padding="{ left: 50, right: 50 }">
+                <image-compare class="img-fluid" :before="before" :after="after" :padding="{ left: 0, right: 0 }">
                     <i class="fa fa-angle-left" aria-hidden="true" slot="icon-left"></i>
                     <i class="fa fa-angle-right" aria-hidden="true" slot="icon-right"></i>
                 </image-compare>
@@ -80,12 +87,14 @@
         },
 
         methods:{
-            async sub(){
+            async sub(latitude = "", longitude = ""){
 
                 document.getElementById('loading').classList.remove("d-none");
 
-                let latitude = document.getElementById('inputLatitude').value;
-                let longitude = document.getElementById('inputLongitude').value;
+                if (!latitude || !longitude){
+                    let latitude = document.getElementById('inputLatitude').value;
+                    let longitude = document.getElementById('inputLongitude').value;
+                }
 
                 // if no latitude or longitude has been given, use those from the address
                 if (!latitude || !longitude){
@@ -94,8 +103,6 @@
                     let postalCode = document.getElementById('inputCodePostal').value;
 
                     let coordinates = await this.geocoding(street, city, postalCode);
-
-                    console.log(coordinates);
 
                     latitude = coordinates[0];
                     longitude = coordinates[1];
@@ -140,7 +147,8 @@
                     params: {
                         file: picture
                     }
-                })
+                });
+
                 return true;
             },
 
@@ -150,7 +158,8 @@
                 this.after = img;
             },
             
-            async geocoding(street = "", city = "", postalCode = ""){ // turns an address into coordinates
+            // turns an address into coordinates
+            async geocoding(street = "", city = "", postalCode = ""){ 
                 let query = street+", "+city+", "+postalCode;
                 let response = await axios.get('https://nominatim.openstreetmap.org/search' , {
                     params: {
@@ -159,9 +168,57 @@
                     }
                 });
 
-                let coordinates = [response.data[0].lat, response.data[0].lon];
+                let coordinates = this.selectOne(response.data);
 
                 return coordinates;
+            },
+
+            //checks if more than one address has been retrieved by geocoding, and asks the user to choose one if so
+            selectOne(addressList){
+                let selectDiv = document.getElementById('select');
+                selectDiv.innerHTML = "";
+
+                if (addressList.length > 1){
+                    selectDiv.removeEventListener("click", this.changeSelected);
+                    selectDiv.addEventListener("click", this.changeSelected);
+
+                    // add user instructions
+                    let label = document.createElement("H3");
+                    let labelText = document.createTextNode("Several results have been found, select one to display :");
+                    label.appendChild(labelText);
+                    selectDiv.appendChild(label);
+                    
+                    // add the different addresses
+                    addressList.forEach(address => {
+                        let li = document.createElement("LI");
+                        let radio = document.createElement('input');
+                        let placeName = document.createTextNode(address.display_name+" ("+address.type+")");
+                        
+                        radio.setAttribute('type', 'radio');
+                        radio.setAttribute('name', 'choice');
+                        radio.setAttribute('latitude', address.lat);
+                        radio.setAttribute('longitude', address.lon);
+
+                        li.appendChild(radio);
+                        li.appendChild(placeName);
+                        selectDiv.appendChild(li);
+                    });
+
+                    selectDiv.querySelector("input").checked = true;
+                }
+                
+                return [addressList[0].lat, addressList[0].lon];
+            },
+
+            changeSelected(event){
+                let latitude = event.target.getAttribute("latitude");
+                let longitude = event.target.getAttribute("longitude");
+
+                console.log(event.target.getAttribute("latitude"));
+
+                if (latitude && longitude){
+                    this.sub(latitude, longitude);
+                }
             }
         }
      }
