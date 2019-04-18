@@ -106,8 +106,6 @@
 
                     let coordinates = await this.geocoding(street, city, postalCode);
 
-                    console.log(coordinates);
-
                     latitude = coordinates[0];
                     longitude = coordinates[1];
                 }

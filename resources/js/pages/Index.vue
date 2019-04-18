@@ -3,7 +3,7 @@
         <div id="loading" class="fixed-top d-none">
             <vue-loader direction="top-right" image="https://loading.io/spinners/coolors/lg.palette-rotating-ring-loader.gif" text="Chargement..." text-color="#786fa6" :background="'#ea8685'" />
         </div>
-        <h1>Bienvenue</h1>
+        <h1 id="title"></h1>
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
@@ -25,34 +25,77 @@
         },
        data () {
             return {
-                before: './img/before.jpg',
-                after: './img/after.jpg'
+                before: '',
+                after: ''
             }
         },
         methods:{
-            async apod(){
 
-                let response = await axios.get('https://api.nasa.gov/planetary/apod' , {
-                    params: {
-                        api_key: 'f8Bf5QWZSK50tRZOZq7BCuHCpICDTqs62MPmG9xt'
-                    }
-                })
-
-                this.after = await response.data.hdurl;
+            async randomName(){
+                let city = ['Grenoble', 'Paris', 'Lyon', 'Bordeaux', 'Nice', 'Caen', 'Rouen', 'Lille', 'Lyon', 'Marseille', 'Nice', 'Toulouse', 'Evreux', 'Narbonne', 'Brest', 'Le Havre', 'Rennes', 'Lens', 'Dunkerque', 'Strasbourg', 'Mulhouse', 'Tarbes', 'Perpignan', 'Montpellier'];
+                return city[Math.floor(Math.random() * Math.floor(city.length))];
             },
 
-            async randomPic(){
-                let response = await axios.get('/grab');
-                this.before = await response.data;
-            }
+            async geocoding(location){ // turns an address into coordinates
+                let response = await axios.get('https://nominatim.openstreetmap.org/search' , {
+                    params: {
+                        format: "json",
+                        q: location
+                    }
+                });
+
+               return [response.data[0].lat, response.data[0].lon];
+            },
+
+            async getImage(latitude, longitude, date){
+
+                let response = await axios.get('https://api.nasa.gov/planetary/earth/imagery/' , {
+                    params: {
+                        lon: longitude,
+                        lat: latitude,
+                        date: date,
+                        dim: 0.1,
+                        cloud_score: 'True',
+                        api_key: 'f8Bf5QWZSK50tRZOZq7BCuHCpICDTqs62MPmG9xt'
+                    }
+                });
+
+                return response.data.url;
+            },
+
+            async storePic(picture){
+
+                let question = await axios.post('/save' , {
+                    params: {
+                        file: picture
+                    }
+                })
+                return true;
+            },
         },
+
         async mounted() {
-           document.getElementById('loading').classList.remove("d-none");
+            document.getElementById('loading').classList.remove("d-none");
 
-           this.apod();
-           await this.randomPic();
+            let city = await this.randomName();
 
-           document.getElementById('loading').classList.add("d-none");
+            document.getElementById('title').textContent = 'Today, let\'s discover the city of '+city;
+
+            let coordinates = await this.geocoding(city);
+
+            let img1 = this.getImage(coordinates[0], coordinates[1], '2014-08-01');
+            let img2 = this.getImage(coordinates[0], coordinates[1], '2016-08-01');
+
+            this.before = await img1;
+            this.after = await img2;
+
+            let upload1 = this.storePic(this.before);
+            let upload2 = this.storePic(this.after);
+
+            await upload1;
+            await upload2;
+
+            document.getElementById('loading').classList.add("d-none");
         }
     }
 </script>
