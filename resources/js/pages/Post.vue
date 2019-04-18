@@ -58,7 +58,7 @@
                 <!-- affiche un choix si plusieurs résultats ont été trouvés -->
                 <div id="select" class="row justify-content-center">
                 </div>
-                
+
             </nav>
             <div class="col-md-9 ml-sm-auto col-lg-10 px-4">
                 <image-compare class="img-fluid" :before="before" :after="after" :padding="{ left: 0, right: 0 }">
