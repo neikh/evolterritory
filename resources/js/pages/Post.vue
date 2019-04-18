@@ -98,9 +98,6 @@
 
                 // if no latitude or longitude has been given, use those from the address
                 if (latitude == "" || longitude == ""){
-                    console.log("here");
-                    console.log(latitude);
-                    console.log(longitude);
                     let street = document.getElementById('inputAdresse').value;
                     let city = document.getElementById('inputVille').value;
                     let postalCode = document.getElementById('inputCodePostal').value;
@@ -245,8 +242,6 @@
             changeSelected(event){
                 let latitude = event.target.getAttribute("latitude");
                 let longitude = event.target.getAttribute("longitude");
-
-                console.log(event.target.getAttribute("latitude"));
 
                 if (latitude && longitude){
                     this.sub(latitude, longitude);
