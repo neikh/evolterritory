@@ -4,8 +4,8 @@
             <vue-loader direction="top-right" image="https://loading.io/spinners/coolors/lg.palette-rotating-ring-loader.gif" text="Chargement..." text-color="#786fa6" :background="'#ea8685'" />
         </div>
         <div class="row ">
-            <nav class="col-md-2 d-none d-md-block bg-light sidebar ">
-                <div class="row justify-content-center">
+            <nav class="col-md-2 d-none d-md-block bg-light sidebar border-right border-top border-dark h-100">
+                <div class="row justify-content-center pt-4">
                     <div class=" Adresse">
                         <div class="form-group col-md-12">
                             <label for="inputAdresse">Adresse</label>
@@ -29,15 +29,16 @@
                         <input type="longitude" class="form-control" id="inputLongitude" value="40">
                     </div>
 
-                    <div class="row justify-content-center">
-                        <div class="form-group col-md-6">
+                    <div class="row mx-auto">
+                        <div class="form-group col-md-12">
                             <label for="inputDate1">Date 1</label>
-                            <datetime v-model="date1" input-id="inputDate1"></datetime>
+                            <datetime v-model="date1" input-id="inputDate1" input-class="form-control"></datetime>
+                            <!-- :format="{ year: 'numeric', month: 'numeric', day: 'numeric'}" -->
                         </div>
 
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-12">
                             <label for="inputDate2">Date 2</label>
-                            <datetime v-model="date2" input-id="inputDate2"></datetime>
+                            <datetime v-model="date2" input-id="inputDate2" input-class="form-control"></datetime>
                         </div>
                     </div>
 
@@ -72,16 +73,20 @@
 
 <script>
     import vueLoader from '@nulldreams/vue-loading/src/vue-loading';
+    import { Datetime } from 'vue-datetime';
     import { Settings } from 'luxon';
     Settings.defaultLocale = 'en';
     export default {
         components: {
-            vueLoader
+            vueLoader,
+            Datetime
         },
         data () {
             return {
                 before: '',
-                after: ''
+                after: '',
+                date1: '2015-02-22T00:00:00.000Z',
+                date2: '2017-02-22T00:00:00.000Z'
             }
         },
         mounted() {
