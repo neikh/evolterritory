@@ -3,6 +3,7 @@
         <div id="loading" class="fixed-top d-none">
             <vue-loader direction="top-right" image="https://loading.io/spinners/coolors/lg.palette-rotating-ring-loader.gif" text="Chargement..." text-color="#786fa6" :background="'#ea8685'" />
         </div>
+
         <div class="row ">
             <nav class="col-md-2 d-none d-md-block bg-light sidebar ">
                 <div class="row justify-content-center">
@@ -21,8 +22,6 @@
                         </div>
                     </div>
 
-
-
                     <div class="form-group col-md-6">
                         <label for="inputlatitude">Latitude</label>
                         <input type="latitude" class="form-control" id="inputLatitude" value="25">
@@ -40,17 +39,6 @@
                         <input type="date" class="form-control" id="inputDate2" value="2015-02-01">
                     </div>
 
-
-
-                        
-
-
-
-
-
-
-
-
                     <div class="row justify-content-center">
                         <button v-on:click="sub()" type="button" name="button" class="btn btn-dark">Chercher</button>
                     </div>
@@ -60,15 +48,9 @@
                 <div class="row justify-content-center">
                     <button v-on:click="switchImages()" type="button" class="btn btn-dark">Switch images</button>
                 </div>
-                <br>
-
-                <!-- affiche un choix si plusieurs résultats ont été trouvés -->
-                <div id="select" class="row justify-content-center">
-                </div>
-
             </nav>
             <div class="col-md-9 ml-sm-auto col-lg-10 px-4">
-                <image-compare class="img-fluid" :before="before" :after="after" :padding="{ left: 0, right: 0 }">
+                <image-compare class="img-fluid" :before="before" :after="after" :padding="{ left: 50, right: 50 }">
                     <i class="fa fa-angle-left" aria-hidden="true" slot="icon-left"></i>
                     <i class="fa fa-angle-right" aria-hidden="true" slot="icon-right"></i>
                 </image-compare>
@@ -91,21 +73,17 @@
             }
         },
         mounted() {
-
-
-        },
+            if(document.location != 'http://localhost:3000/post'){
+                console.log(this.GGET('voila'))}
+            },
 
         methods:{
-            async sub(latitude = "", longitude = ""){
-
-                document.getElementById('loading').classList.remove("d-none");
-
-                if (!latitude || !longitude){
-                    let latitude = document.getElementById('inputLatitude').value;
-                    let longitude = document.getElementById('inputLongitude').value;
-                }
+            async sub(){
+                let latitude = document.getElementById('inputLatitude').value;
+                let longitude = document.getElementById('inputLongitude').value;
 
                 // if no latitude or longitude has been given, use those from the address
+
                 if (!latitude || !longitude){
                     let street = document.getElementById('inputAdresse').value;
                     let city = document.getElementById('inputVille').value;
@@ -113,16 +91,24 @@
 
                     let coordinates = await this.geocoding(street, city, postalCode);
 
+                    console.log(coordinates);
+
                     latitude = coordinates[0];
                     longitude = coordinates[1];
                 }
 
                 let date1 = document.getElementById('inputDate1').value;
-                let img1 = this.getImage(latitude, longitude, date1);
-
                 let date2 = document.getElementById('inputDate2').value;
-                let img2 = this.getImage(latitude, longitude, date2);
 
+                this.imgCharge(latitude, longitude, date2, date1)
+
+            },
+
+            async imgCharge(latitude, longitude, date2, date1) {
+
+                document.getElementById('loading').classList.remove("d-none");
+                let img2 = this.getImage(latitude, longitude, date2);
+                let img1 = this.getImage(latitude, longitude, date1);
                 this.before = await img1;
                 this.after = await img2;
 
@@ -132,8 +118,6 @@
                 await upload1;
                 await upload2;
                 document.getElementById('loading').classList.add("d-none");
-
-
 
             },
 
@@ -159,8 +143,7 @@
                     params: {
                         file: picture
                     }
-                });
-
+                })
                 return true;
             },
 
@@ -169,9 +152,22 @@
                 this.before = this.after;
                 this.after = img;
             },
-            
-            // turns an address into coordinates
-            async geocoding(street = "", city = "", postalCode = ""){ 
+            GGET(param) {
+            	var vars = {};
+            	window.location.href.replace( location.hash, '' ).replace(
+            		/[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
+            		function( m, key, value ) { // callback
+            			vars[key] = value !== undefined ? value : '';
+            		}
+            	);
+
+            	if ( param ) {
+            		return vars[param] ? vars[param] : null;
+            	}
+            	return vars;
+            },
+
+            async geocoding(street = "", city = "", postalCode = ""){ // turns an address into coordinates
                 let query = street+", "+city+", "+postalCode;
                 let response = await axios.get('https://nominatim.openstreetmap.org/search' , {
                     params: {
@@ -180,57 +176,9 @@
                     }
                 });
 
-                let coordinates = this.selectOne(response.data);
+                let coordinates = [response.data[0].lat, response.data[0].lon];
 
                 return coordinates;
-            },
-
-            //checks if more than one address has been retrieved by geocoding, and asks the user to choose one if so
-            selectOne(addressList){
-                let selectDiv = document.getElementById('select');
-                selectDiv.innerHTML = "";
-
-                if (addressList.length > 1){
-                    selectDiv.removeEventListener("click", this.changeSelected);
-                    selectDiv.addEventListener("click", this.changeSelected);
-
-                    // add user instructions
-                    let label = document.createElement("H3");
-                    let labelText = document.createTextNode("Several results have been found, select one to display :");
-                    label.appendChild(labelText);
-                    selectDiv.appendChild(label);
-                    
-                    // add the different addresses
-                    addressList.forEach(address => {
-                        let li = document.createElement("LI");
-                        let radio = document.createElement('input');
-                        let placeName = document.createTextNode(address.display_name+" ("+address.type+")");
-                        
-                        radio.setAttribute('type', 'radio');
-                        radio.setAttribute('name', 'choice');
-                        radio.setAttribute('latitude', address.lat);
-                        radio.setAttribute('longitude', address.lon);
-
-                        li.appendChild(radio);
-                        li.appendChild(placeName);
-                        selectDiv.appendChild(li);
-                    });
-
-                    selectDiv.querySelector("input").checked = true;
-                }
-                
-                return [addressList[0].lat, addressList[0].lon];
-            },
-
-            changeSelected(event){
-                let latitude = event.target.getAttribute("latitude");
-                let longitude = event.target.getAttribute("longitude");
-
-                console.log(event.target.getAttribute("latitude"));
-
-                if (latitude && longitude){
-                    this.sub(latitude, longitude);
-                }
             }
         }
      }
