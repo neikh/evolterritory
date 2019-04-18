@@ -88,8 +88,6 @@
 
                     let coordinates = await this.geocoding(street, city, postalCode);
 
-                    console.log(coordinates);
-
                     latitude = coordinates[0];
                     longitude = coordinates[1];
                 }
@@ -142,7 +140,7 @@
                 this.before = this.after;
                 this.after = img;
             },
-            
+
             async geocoding(street = "", city = "", postalCode = ""){ // turns an address into coordinates
                 let query = street+", "+city+", "+postalCode;
                 let response = await axios.get('https://nominatim.openstreetmap.org/search' , {
