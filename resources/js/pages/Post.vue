@@ -100,13 +100,16 @@
 
                 document.getElementById('loading').classList.remove("d-none");
 
-                if (!latitude || !longitude){
-                    let latitude = document.getElementById('inputLatitude').value;
-                    let longitude = document.getElementById('inputLongitude').value;
+                if (latitude == "" || longitude == ""){
+                    latitude = document.getElementById('inputLatitude').value;
+                    longitude = document.getElementById('inputLongitude').value;
                 }
 
                 // if no latitude or longitude has been given, use those from the address
-                if (!latitude || !longitude){
+                if (latitude == "" || longitude == ""){
+                    console.log("here");
+                    console.log(latitude);
+                    console.log(longitude);
                     let street = document.getElementById('inputAdresse').value;
                     let city = document.getElementById('inputVille').value;
                     let postalCode = document.getElementById('inputCodePostal').value;
