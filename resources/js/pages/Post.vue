@@ -3,6 +3,7 @@
         <div id="loading" class="fixed-top d-none">
             <vue-loader direction="top-right" image="https://loading.io/spinners/coolors/lg.palette-rotating-ring-loader.gif" text="Chargement..." text-color="#786fa6" :background="'#ea8685'" />
         </div>
+
         <div class="row ">
             <nav class="col-md-2 d-none d-md-block bg-light sidebar ">
                 <div class="row justify-content-center">
@@ -39,16 +40,24 @@
                         <label for="inputDate2">Date 2</label>
                         <input type="date" class="form-control" id="inputDate2" value="2015-02-01">
                     </div>
-                    <div class="form-group col-md-12">
-                        <label for="formControlRange">Example Range input</label>
-                        <input type="range" class="form-control-range" id="formControlRange">
-                    </div>
+
+
+
+                        
+
+
+
+
+
+
+
+
                     <div class="row justify-content-center">
                         <button v-on:click="sub()" type="button" name="button" class="btn btn-dark">Chercher</button>
                     </div>
 
                 </div>
-                <br>
+
                 <div class="row justify-content-center">
                     <button v-on:click="switchImages()" type="button" class="btn btn-dark">Switch images</button>
                 </div>
@@ -65,6 +74,7 @@
 
 <script>
     import vueLoader from '@nulldreams/vue-loading/src/vue-loading'
+
     export default {
         components: {
             vueLoader
@@ -76,6 +86,7 @@
             }
         },
         mounted() {
+
 
         },
 
@@ -116,6 +127,9 @@
                 await upload1;
                 await upload2;
                 document.getElementById('loading').classList.add("d-none");
+
+
+
             },
 
             async getImage(latitude, longitude, date){
@@ -149,7 +163,7 @@
                 this.before = this.after;
                 this.after = img;
             },
-            
+
             async geocoding(street = "", city = "", postalCode = ""){ // turns an address into coordinates
                 let query = street+", "+city+", "+postalCode;
                 let response = await axios.get('https://nominatim.openstreetmap.org/search' , {
@@ -166,3 +180,7 @@
         }
      }
 </script>
+
+<style>
+
+</style>
