@@ -3,6 +3,12 @@
         <div id="loading" class="fixed-top d-none">
             <vue-loader direction="top-right" image="https://loading.io/spinners/coolors/lg.palette-rotating-ring-loader.gif" text="Loading..." text-color="#786fa6" :background="'#ea8685'" />
         </div>
+        <div id="save" class="fixed-middle d-none">
+            <vue-loader direction="top-right" image="https://loading.io/spinners/coolors/lg.palette-rotating-ring-loader.gif" text="Saving..." text-color="#786fa6" :background="'#ea8685'" />
+        </div>
+        <div id="success" class="alert alert-success position-fixed fixed-top d-none" role="alert">
+            Your beautiful post made with awwesome pictures have been successfully created! Keep up the good work!
+        </div>
 
         <div class="row ">
             <nav class="col-md-2 d-none d-md-block bg-light sidebar border-right border-top border-dark h-100">
@@ -43,15 +49,15 @@
                         </div>
                     </div>
 
-                    <div class="row justify-content-center">
+                    <div class="justify-content-center">
                         <button v-on:click="sub()" type="button" name="button" class="btn btn-dark">Search</button>
                     </div>
 
-                    <div class="row justify-content-center mt-3">
+                    <div class="justify-content-center pl-2">
                         <button v-on:click="saveThisVue()" type="button" name="button" class="btn btn-dark">Save</button>
                     </div>
                 </div>
-                <div class="row justify-content-center">
+                <div class="row justify-content-center mt-3">
                     <button v-on:click="switchImages()" type="submit" class="btn btn-dark">Switch images</button>
                 </div>
                 <br />
@@ -170,7 +176,7 @@
 
             async storePic(picture){
 
-                let question = await axios.post('/save' , {
+                let question = await axios.post('/temp' , {
                     params: {
                         file: picture
                     }
@@ -280,6 +286,8 @@
             },
 
             async saveThisVue(){
+
+                document.getElementById('save').classList.remove("d-none");
                 if (this.before != '' && this.after != ''){
                     let question = await axios.post('/save' , {
                         params: {
@@ -289,9 +297,17 @@
                             description: "Voici le top 10 des raisons pour lesquelles cette comparaison est incroyable, la n°3 va vous faire halluciner !"
                         }
                     })
-                    console.log(question.data);
+
+                    document.getElementById('save').classList.add("d-none");
+                    document.getElementById('success').classList.remove("d-none");
+                    let temp = await this.sleep(4000);
+                    document.getElementById('success').classList.add("d-none");
                     return true;
                 }
+
+            },
+            sleep(ms) {
+                return new Promise(resolve => setTimeout(resolve, ms));
             }
         }
     }

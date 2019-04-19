@@ -67,7 +67,7 @@
 
             async storePic(picture){
 
-                let question = await axios.post('/save' , {
+                let question = await axios.post('/temp' , {
                     params: {
                         file: picture
                     }

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\ImageRequest;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -13,7 +15,7 @@ class PostController extends Controller
      */
     public function __construct()
     {
-        //$this->middleware('auth');
+        $this->middleware('auth', ['except' => ['index']]);
     }
 
     /**
@@ -32,8 +34,23 @@ class PostController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function store()
+    public function store(ImageRequest $request)
     {
-         return ['vooila','lalala'];
+
+        $random = \Str::random(40);
+        \Image::make($request['params']['file1'])->resize(512, 512)->save(base_path('storage\app\public\images\\'.$random.'.jpg'));
+        $random2 = \Str::random(40);
+        \Image::make($request['params']['file2'])->resize(512, 512)->save(base_path('storage\app\public\images\\'.$random2.'.jpg'));
+
+        $post = new \App\Post;
+        $post->id_author = Auth::id();
+        $post->id_pic_1 = 'images\\'.$random.'.jpg';
+        $post->id_pic_2 = 'images\\'.$random2.'.jpg';
+        $post->titre = $request['params']['titre'];
+        $post->description = $request['params']['description'];
+        $post->nb_vote = 0;
+        $post->save();
+
+        return Auth::id();
     }
 }
