@@ -9,7 +9,7 @@
                 <div id="date1" class="d-inline font-weight-bold">2014-08-01</div>
                 <div id="date2" class="d-inline font-weight-bold float-right">2016-08-01</div>
                 <div class="card">
-                    <image-compare class="img-fluid" :before="before" :after="after" :padding="{ left: 0, right: 0 }">
+                    <image-compare class="img-fluid" :before="before" :after="after" :padding="{ left: 1, right: 1 }">
                         <i class="fa fa-angle-left" aria-hidden="true" slot="icon-left"></i>
                         <i class="fa fa-angle-right" aria-hidden="true" slot="icon-right"></i>
                     </image-compare>

@@ -69,7 +69,7 @@
             <div class="col-md-8 col-lg-8 px-4">
                 <div id="date1" class="d-inline font-weight-bold"></div>
                 <div id="date2" class="d-inline font-weight-bold float-right"></div>
-                <image-compare class="img-fluid" :before="before" :after="after" :padding="{ left: 0, right: 0 }">
+                <image-compare class="img-fluid" :before="before" :after="after" :padding="{ left: 1, right: 1 }">
                     <i class="fa fa-angle-left" aria-hidden="true" slot="icon-left"></i>
                     <i class="fa fa-angle-right" aria-hidden="true" slot="icon-right"></i>
                 </image-compare>
@@ -105,9 +105,9 @@
         },
 
         methods:{
-            async sub(latitude = "", longitude = ""){
+            async sub(latitude = "", longitude = "", valid = false){
 
-                if(!this.isFormValid('search')){
+                if(!this.isFormValid('search') && valid == false){
                     this.$swal('The form is not filled correctly.');
                 } else {
 
@@ -305,7 +305,7 @@
                 let longitude = event.srcElement.selectedOptions[0].attributes.longitude.value;
 
                 if (latitude && longitude){
-                    this.sub(latitude, longitude);
+                    this.sub(latitude, longitude, true);
                 }
             },
 
