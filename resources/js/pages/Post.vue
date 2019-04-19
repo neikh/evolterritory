@@ -165,17 +165,22 @@
 
             async getImage(latitude, longitude, date){
 
-                let response = await axios.get('https://api.nasa.gov/planetary/earth/imagery/' , {
-                    params: {
-                        lon: longitude,
-                        lat: latitude,
-                        date: date,
-                        dim: 0.1,
-                        cloud_score: 'True',
-                        api_key: 'f8Bf5QWZSK50tRZOZq7BCuHCpICDTqs62MPmG9xt'
-                    }
+                try{
+                    let response = await axios.get('https://api.nasa.gov/planetary/earth/imagery/' , {
+                        params: {
+                            lon: longitude,
+                            lat: latitude,
+                            date: date,
+                            dim: 0.1,
+                            cloud_score: 'True',
+                            api_key: 'f8Bf5QWZSK50tRZOZq7BCuHCpICDTqs62MPmG9xt'
+                        }
 
-                });
+                    });
+                } catch(e){
+                    this.$swal('Something went wrong with the NASA API. The location may not exist.');
+                    document.getElementById('loading').classList.add("d-none");
+                }
 
                 return response.data;
             },
@@ -211,16 +216,22 @@
             },
 
             async geocoding(street = "", city = "", postalCode = ""){ // turns an address into coordinates
-                let query = street+", "+city+", "+postalCode;
-                let response = await axios.get('https://nominatim.openstreetmap.org/search' , {
-                    params: {
-                        format: "json",
-                        q: query
-                    }
-                });
 
-                let coordinates = this.selectOne(response.data);
+                try {
+                    let query = street+", "+city+", "+postalCode;
+                    let response = await axios.get('https://nominatim.openstreetmap.org/search' , {
+                        params: {
+                            format: "json",
+                            q: query
+                        }
+                    });
 
+                    let coordinates = this.selectOne(response.data);
+
+                } catch(e){
+                    this.$swal('Something went wrong with the OpenStreetMap API. The location may not exist.');
+                    document.getElementById('loading').classList.add("d-none");
+                }
                 return coordinates;
             },
 
@@ -332,7 +343,7 @@
                 let date2 = document.getElementById('inputDate2').value;
 
                 if (mode === "search"){
-                    if ((latitude != '' && longitude != '') &&  (date1 != '' && date2 != '')){
+                    if ((latitude != '' && latitude >= -90 && latitude <= 90 && longitude != '' && longitude >= -180 && latitude <= 180) && (date1 != '' && date2 != '')){
                         return true;
                     }
 
