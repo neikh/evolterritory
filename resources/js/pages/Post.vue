@@ -5,8 +5,8 @@
         </div>
 
         <div class="row ">
-            <nav class="col-md-2 d-none d-md-block bg-light sidebar ">
-                <div class="row justify-content-center">
+            <nav class="col-md-2 d-none d-md-block bg-light sidebar border-right border-top border-dark h-100">
+                <div class="row justify-content-center pt-4">
                     <div class=" Adresse">
                         <div class="form-group col-md-12">
                             <label for="inputAdresse">Adresse</label>
@@ -30,15 +30,20 @@
                         <input type="longitude" class="form-control" id="inputLongitude" value="40">
                     </div>
 
-                    <div class="row justify-content-center">
-                        <div class="form-group col-md-6">
+                    <div class="row mx-auto">
+                        <div class="form-group col-md-12">
                             <label for="inputDate1">Date 1</label>
-                            <datetime v-model="date1" input-id="inputDate1"></datetime>
+                            <datetime v-model="date1" input-id="inputDate1" input-class="form-control"></datetime>
+                            <!-- :format="{ year: 'numeric', month: 'numeric', day: 'numeric'}" -->
                         </div>
 
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-12">
                             <label for="inputDate2">Date 2</label>
+<<<<<<< HEAD
                             <datetime v-model="date2" input-id="inputDate2" format="yyyyMMdd"></datetime>
+=======
+                            <datetime v-model="date2" input-id="inputDate2" input-class="form-control"></datetime>
+>>>>>>> ac46363ffc80d36d8793d7b18e63e8ab77a3c7fb
                         </div>
                     </div>
 
@@ -73,14 +78,20 @@
 
 <script>
     import vueLoader from '@nulldreams/vue-loading/src/vue-loading';
+    import { Datetime } from 'vue-datetime';
+    import { Settings } from 'luxon';
+    Settings.defaultLocale = 'en';
     export default {
         components: {
-            vueLoader
+            vueLoader,
+            Datetime
         },
         data () {
             return {
                 before: '',
-                after: ''
+                after: '',
+                date1: '2015-02-22T00:00:00.000Z',
+                date2: '2017-02-22T00:00:00.000Z'
             }
         },
         mounted() {
@@ -89,6 +100,7 @@
             },
 
         methods:{
+<<<<<<< HEAD
             async sub(){
                 let latitude = document.getElementById('inputLatitude').value;
                 let longitude = document.getElementById('inputLongitude').value;
@@ -96,6 +108,19 @@
                 // if no latitude or longitude has been given, use those from the address
 
                 if (!latitude || !longitude){
+=======
+            async sub(latitude = "", longitude = ""){
+
+                document.getElementById('loading').classList.remove("d-none");
+
+                if (latitude == "" || longitude == ""){
+                    latitude = document.getElementById('inputLatitude').value;
+                    longitude = document.getElementById('inputLongitude').value;
+                }
+
+                // if no latitude or longitude has been given, use those from the address
+                if (latitude == "" || longitude == ""){
+>>>>>>> ac46363ffc80d36d8793d7b18e63e8ab77a3c7fb
                     let street = document.getElementById('inputAdresse').value;
                     let city = document.getElementById('inputVille').value;
                     let postalCode = document.getElementById('inputCodePostal').value;
@@ -193,13 +218,14 @@
             },
 
             dateRefactor(date){
-                let months = ['janv.','févr.','mar.','avr.','mai','juin','juil.','août','sep.','oct.','nov.','dec.'];
+                let months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
                 let organize = date.split(' ');
-                let day = organize[0];
-                let month = organize[1];
+                let day = organize[1];
+                let month = organize[0];
                 let year = organize[2];
 
+                day = day.slice(0, -1);
                 day = (day < 10 ? '0'+day : day);
 
                 for (let i = 0; i < months.length; i++){
@@ -252,8 +278,6 @@
             changeSelected(event){
                 let latitude = event.target.getAttribute("latitude");
                 let longitude = event.target.getAttribute("longitude");
-
-                console.log(event.target.getAttribute("latitude"));
 
                 if (latitude && longitude){
                     this.sub(latitude, longitude);
