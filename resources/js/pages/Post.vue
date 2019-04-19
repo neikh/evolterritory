@@ -3,7 +3,7 @@
         <div id="loading" class="fixed-top d-none">
             <vue-loader direction="top-right" image="https://loading.io/spinners/coolors/lg.palette-rotating-ring-loader.gif" text="Loading..." text-color="#786fa6" :background="'#ea8685'" />
         </div>
-        <div id="save" class="fixed-middle d-none">
+        <div id="save" class="fixed-top d-none">
             <vue-loader direction="top-right" image="https://loading.io/spinners/coolors/lg.palette-rotating-ring-loader.gif" text="Saving..." text-color="#786fa6" :background="'#ea8685'" />
         </div>
         <div id="success" class="alert alert-success position-fixed fixed-top d-none" role="alert">
