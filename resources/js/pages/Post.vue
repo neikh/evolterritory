@@ -106,7 +106,7 @@
 
         methods:{
             async sub(latitude = "", longitude = ""){
-
+                console.log('test');
                 document.getElementById('loading').classList.remove("d-none");
 
                 if (latitude == "" || longitude == ""){
@@ -244,8 +244,8 @@
                 selectDiv.innerHTML = "";
 
                 if (addressList.length > 1){
-                    selectDiv.removeEventListener("click", this.changeSelected);
-                    selectDiv.addEventListener("click", this.changeSelected);
+                    selectDiv.removeEventListener("change", this.changeSelected);
+                    selectDiv.addEventListener("change", this.changeSelected);
 
                     // add user instructions
                     let label = document.createElement("p");
@@ -257,7 +257,7 @@
 
                     // add the different addresses
                     addressList.forEach(address => {
-                        
+
                         let option = document.createElement('option');
                         let placeName = document.createTextNode(address.display_name+" ("+address.type+")");
 
@@ -275,8 +275,9 @@
             },
 
             changeSelected(event){
-                let latitude = event.target.getAttribute("latitude");
-                let longitude = event.target.getAttribute("longitude");
+
+                let latitude = event.srcElement.selectedOptions[0].attributes.latitude.value;
+                let longitude = event.srcElement.selectedOptions[0].attributes.longitude.value;
 
                 if (latitude && longitude){
                     this.sub(latitude, longitude);
