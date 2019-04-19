@@ -21,10 +21,6 @@
                             <input class="form-control" id="inputCodePostal" placeholder="Code postal">
                         </div>
                     </div>
-<<<<<<< HEAD
-
-=======
->>>>>>> 0ad3742c45b38dac3148a518802aa1e5eaab80d8
                     <div class="form-group col-md-6">
                         <label for="inputlatitude">Latitude</label>
                         <input type="latitude" class="form-control" id="inputLatitude" value="25">
@@ -33,15 +29,6 @@
                         <label for="inputLongitude">Longitude</label>
                         <input type="longitude" class="form-control" id="inputLongitude" value="40">
                     </div>
-<<<<<<< HEAD
-                    <div class="form-group col-md-6">
-                        <label for="inputDate1">Date 1</label>
-                        <input type="date" class="form-control" id="inputDate1" value="2016-02-01">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="inputDate2">Date 2</label>
-                        <input type="date" class="form-control" id="inputDate2" value="2015-02-01">
-=======
 
                     <div class="row justify-content-center">
                         <div class="form-group col-md-6">
@@ -51,9 +38,8 @@
 
                         <div class="form-group col-md-6">
                             <label for="inputDate2">Date 2</label>
-                            <datetime v-model="date2" input-id="inputDate2"></datetime>
+                            <datetime v-model="date2" input-id="inputDate2" format="yyyyMMdd"></datetime>
                         </div>
->>>>>>> 0ad3742c45b38dac3148a518802aa1e5eaab80d8
                     </div>
 
                     <div class="row justify-content-center">
@@ -66,11 +52,6 @@
                 <div class="row justify-content-center">
                     <button v-on:click="switchImages()" type="button" class="btn btn-dark">Switch images</button>
                 </div>
-<<<<<<< HEAD
-            </nav>
-            <div class="col-md-9 ml-sm-auto col-lg-10 px-4">
-                <image-compare class="img-fluid" :before="before" :after="after" :padding="{ left: 50, right: 50 }">
-=======
                 <br />
 
                 <!-- affiche un choix si plusieurs résultats ont été trouvés -->
@@ -82,7 +63,6 @@
                 <div id="date1" class="d-inline font-weight-bold"></div>
                 <div id="date2" class="d-inline font-weight-bold float-right"></div>
                 <image-compare class="img-fluid" :before="before" :after="after" :padding="{ left: 0, right: 0 }">
->>>>>>> 0ad3742c45b38dac3148a518802aa1e5eaab80d8
                     <i class="fa fa-angle-left" aria-hidden="true" slot="icon-left"></i>
                     <i class="fa fa-angle-right" aria-hidden="true" slot="icon-right"></i>
                 </image-compare>
@@ -104,14 +84,9 @@
             }
         },
         mounted() {
-<<<<<<< HEAD
             if(document.location != 'http://localhost:3000/post'){
                 console.log(this.GGET('voila'))}
             },
-=======
-
-        },
->>>>>>> 0ad3742c45b38dac3148a518802aa1e5eaab80d8
 
         methods:{
             async sub(){
@@ -135,18 +110,6 @@
 
                 let date1 = document.getElementById('inputDate1').value;
                 let date2 = document.getElementById('inputDate2').value;
-<<<<<<< HEAD
-=======
-
-                date1 = await this.dateRefactor(date1);
-                date2 = await this.dateRefactor(date2);
-
-                let img1 = this.getImage(latitude, longitude, date1);
-                document.getElementById('date1').textContent = date1;
-
-                let img2 = this.getImage(latitude, longitude, date2);
-                document.getElementById('date2').textContent = date2;
->>>>>>> 0ad3742c45b38dac3148a518802aa1e5eaab80d8
 
                 this.imgCharge(latitude, longitude, date2, date1)
 
@@ -200,7 +163,6 @@
                 this.before = this.after;
                 this.after = img;
             },
-<<<<<<< HEAD
             GGET(param) {
             	var vars = {};
             	window.location.href.replace( location.hash, '' ).replace(
@@ -217,11 +179,6 @@
             },
 
             async geocoding(street = "", city = "", postalCode = ""){ // turns an address into coordinates
-=======
-
-            // turns an address into coordinates
-            async geocoding(street = "", city = "", postalCode = ""){
->>>>>>> 0ad3742c45b38dac3148a518802aa1e5eaab80d8
                 let query = street+", "+city+", "+postalCode;
                 let response = await axios.get('https://nominatim.openstreetmap.org/search' , {
                     params: {
@@ -233,8 +190,6 @@
                 let coordinates = [response.data[0].lat, response.data[0].lon];
 
                 return coordinates;
-<<<<<<< HEAD
-=======
             },
 
             dateRefactor(date){
@@ -303,7 +258,6 @@
                 if (latitude && longitude){
                     this.sub(latitude, longitude);
                 }
->>>>>>> 0ad3742c45b38dac3148a518802aa1e5eaab80d8
             }
         }
      }
