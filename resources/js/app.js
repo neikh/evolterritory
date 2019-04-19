@@ -1,12 +1,14 @@
 import Vue from 'vue'
 import routes from './routes'
 import Datetime from 'vue-datetime'
+import VueSweetalert2 from 'vue-sweetalert2';
 // You need a specific loader for CSS files
 import 'vue-datetime/dist/vue-datetime.css';
 import VueImageCompare from 'vue-image-compare';
 
 Vue.use(Datetime);
 Vue.use(VueImageCompare);
+Vue.use(VueSweetalert2);
 
 require('./bootstrap');
 

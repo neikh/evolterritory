@@ -106,33 +106,38 @@
 
         methods:{
             async sub(latitude = "", longitude = ""){
-                console.log('test');
-                document.getElementById('loading').classList.remove("d-none");
 
-                if (latitude == "" || longitude == ""){
-                    latitude = document.getElementById('inputLatitude').value;
-                    longitude = document.getElementById('inputLongitude').value;
+                if(!this.isFormValid('search')){
+                    this.$swal('The form is not filled correctly.');
+                } else {
+
+                    document.getElementById('loading').classList.remove("d-none");
+
+                    if (latitude == "" || longitude == ""){
+                        latitude = document.getElementById('inputLatitude').value;
+                        longitude = document.getElementById('inputLongitude').value;
+                    }
+
+                    // if no latitude or longitude has been given, use those from the address
+                    if (latitude == "" || longitude == ""){
+                        let street = document.getElementById('inputAdresse').value;
+                        let city = document.getElementById('inputVille').value;
+                        let postalCode = document.getElementById('inputCodePostal').value;
+
+                        let coordinates = await this.geocoding(street, city, postalCode);
+
+                        console.log(coordinates);
+
+                        latitude = coordinates[0];
+                        longitude = coordinates[1];
+                    }
+
+
+                    let date1 = await this.dateRefactor(document.getElementById('inputDate1').value);
+                    let date2 = await this.dateRefactor(document.getElementById('inputDate2').value);
+
+                    this.imgCharge(latitude, longitude, date2, date1)
                 }
-
-                // if no latitude or longitude has been given, use those from the address
-                if (latitude == "" || longitude == ""){
-                    let street = document.getElementById('inputAdresse').value;
-                    let city = document.getElementById('inputVille').value;
-                    let postalCode = document.getElementById('inputCodePostal').value;
-
-                    let coordinates = await this.geocoding(street, city, postalCode);
-
-                    console.log(coordinates);
-
-                    latitude = coordinates[0];
-                    longitude = coordinates[1];
-                }
-
-
-                let date1 = await this.dateRefactor(document.getElementById('inputDate1').value);
-                let date2 = await this.dateRefactor(document.getElementById('inputDate2').value);
-
-                this.imgCharge(latitude, longitude, date2, date1)
             },
 
             async imgCharge(latitude, longitude, date2, date1) {
@@ -289,27 +294,60 @@
 
             async saveThisVue(){
 
-                document.getElementById('save').classList.remove("d-none");
-                if (this.before != '' && this.after != ''){
-                    let question = await axios.post('/save' , {
-                        params: {
-                            file1: this.before,
-                            file2: this.after,
-                            titre: "Une comparaison de ouf 😱😱",
-                            description: "Voici le top 10 des raisons pour lesquelles cette comparaison est incroyable, la n°3 va vous faire halluciner !"
-                        }
-                    })
+                if(!this.isFormValid('save')){
+                    this.$swal('There is no pictures to save.');
+                } else {
 
-                    document.getElementById('save').classList.add("d-none");
-                    document.getElementById('success').classList.remove("d-none");
-                    let temp = await this.sleep(4000);
-                    document.getElementById('success').classList.add("d-none");
-                    return true;
+                    document.getElementById('save').classList.remove("d-none");
+                    if (this.before != '' && this.after != ''){
+                        let question = await axios.post('/save' , {
+                            params: {
+                                file1: this.before,
+                                file2: this.after,
+                                titre: "Une comparaison de ouf 😱😱",
+                                description: "Voici le top 10 des raisons pour lesquelles cette comparaison est incroyable, la n°3 va vous faire halluciner !"
+                            }
+                        })
+
+                        document.getElementById('save').classList.add("d-none");
+                        document.getElementById('success').classList.remove("d-none");
+                        let temp = await this.sleep(4000);
+                        document.getElementById('success').classList.add("d-none");
+                        return true;
+                    }
                 }
 
             },
             sleep(ms) {
                 return new Promise(resolve => setTimeout(resolve, ms));
+            },
+
+            isFormValid(mode){
+                let latitude = document.getElementById('inputLatitude').value;
+                let longitude = document.getElementById('inputLongitude').value;
+                let street = document.getElementById('inputAdresse').value;
+                let city = document.getElementById('inputVille').value;
+                let postalCode = document.getElementById('inputCodePostal').value;
+                let date1 = document.getElementById('inputDate1').value;
+                let date2 = document.getElementById('inputDate2').value;
+
+                if (mode === "search"){
+                    if ((latitude != '' && longitude != '') &&  (date1 != '' && date2 != '')){
+                        return true;
+                    }
+
+                    if ((street != '' || city != '' || postalCode != '') && (date1 != '' && date2 != '')){
+                        return true;
+                    }
+                }
+
+                if (mode === "save"){
+                    if(this.before != "" && this.after != ""){
+                        return true;
+                    }
+                }
+
+                return false;
             }
         }
     }
