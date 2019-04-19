@@ -93,10 +93,13 @@
             }
         },
         mounted() {
-            if(document.location != 'http://localhost:3000/post'){
-                console.log(this.GGET('voila'))}
+            if(document.location.hash){
+                this.imgCharge(this.GGET().lat, this.GGET().lon, this.GGET().date2, this.GGET().date1)
+            }
+
+
             },
-            // document.location.hash
+
 
         methods:{
             async sub(latitude = "", longitude = ""){
@@ -133,6 +136,9 @@
             async imgCharge(latitude, longitude, date2, date1) {
 
                 document.getElementById('loading').classList.remove("d-none");
+
+                document.location.hash = 'lat='+latitude+'&lon='+longitude+'&date1='+date1+'&date2='+date2
+
                 document.getElementById('date1').textContent = date1;
                 document.getElementById('date2').textContent = date2;
 
@@ -147,6 +153,7 @@
                 await upload1;
                 await upload2;
                 document.getElementById('loading').classList.add("d-none");
+
 
             },
 
@@ -183,8 +190,8 @@
             },
             GGET(param) {
             	var vars = {};
-            	window.location.href.replace( location.hash, '' ).replace(
-            		/[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
+            	window.location.href.replace(
+            		/[#&]+([^=&]+)=?([^&]*)?/gi, // regexp
             		function( m, key, value ) { // callback
             			vars[key] = value !== undefined ? value : '';
             		}
