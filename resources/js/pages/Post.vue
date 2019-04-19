@@ -4,8 +4,8 @@
             <vue-loader direction="top-right" image="https://loading.io/spinners/coolors/lg.palette-rotating-ring-loader.gif" text="Loading..." text-color="#786fa6" :background="'#ea8685'" />
         </div>
 
-        <div class="row ">
-            <nav class="col-md-2 d-none d-md-block bg-light sidebar border-right border-top border-dark h-100">
+        <div class="row">
+            <nav class="col-md-3 col-sm-12 d-md-block bg-light sidebar border-right border-top border-dark h-100">
                 <div class="row justify-content-center pt-4">
                     <div class=" Adresse">
                         <div class="form-group col-md-12">
@@ -56,10 +56,11 @@
                 </div>
                 <br />
                 <!-- affiche un choix si plusieurs résultats ont été trouvés -->
-                <div id="select" class="row justify-content-center">
+                <div id="select" class="row justify-content-center pl-4 pr-4">
                 </div>
             </nav>
-            <div class="col-md-9 ml-sm-auto col-lg-10 px-4">
+
+            <div class="col-md-8 col-lg-8 px-4">
                 <div id="date1" class="d-inline font-weight-bold"></div>
                 <div id="date2" class="d-inline font-weight-bold float-right"></div>
                 <image-compare class="img-fluid" :before="before" :after="after" :padding="{ left: 0, right: 0 }">
@@ -249,6 +250,7 @@
                     selectDiv.appendChild(label);
 
                     let select = document.createElement("select");
+                    select.classList.add("form-control");
 
                     // add the different addresses
                     addressList.forEach(address => {
