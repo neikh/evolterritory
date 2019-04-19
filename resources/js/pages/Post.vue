@@ -1,7 +1,7 @@
 <template>
     <div class="container-fluid">
         <div id="loading" class="fixed-top d-none">
-            <vue-loader direction="top-right" image="https://loading.io/spinners/coolors/lg.palette-rotating-ring-loader.gif" text="Chargement..." text-color="#786fa6" :background="'#ea8685'" />
+            <vue-loader direction="top-right" image="https://loading.io/spinners/coolors/lg.palette-rotating-ring-loader.gif" text="Loading..." text-color="#786fa6" :background="'#ea8685'" />
         </div>
 
         <div class="row ">
@@ -43,8 +43,12 @@
                         </div>
                     </div>
 
-                    <div class="row justify-content-center">
-                        <button v-on:click="sub()" type="button" name="button" class="btn btn-dark">Chercher</button>
+                    <div class="justify-content-center">
+                        <button v-on:click="sub()" type="button" name="button" class="btn btn-dark">Search</button>
+                    </div>
+
+                    <div class="justify-content-center ml-3">
+                        <button v-on:click="saveThisVue()" type="button" name="button" class="btn btn-dark">Save</button>
                     </div>
                 </div>
                 <div class="row justify-content-center">
@@ -95,7 +99,7 @@
 
         methods:{
             async sub(latitude = "", longitude = ""){
-
+                console.log('test');
                 document.getElementById('loading').classList.remove("d-none");
 
                 if (latitude == "" || longitude == ""){
@@ -235,8 +239,8 @@
                 selectDiv.innerHTML = "";
 
                 if (addressList.length > 1){
-                    selectDiv.removeEventListener("click", this.changeSelected);
-                    selectDiv.addEventListener("click", this.changeSelected);
+                    selectDiv.removeEventListener("change", this.changeSelected);
+                    selectDiv.addEventListener("change", this.changeSelected);
 
                     // add user instructions
                     let label = document.createElement("p");
@@ -266,12 +270,27 @@
             },
 
             changeSelected(event){
-                console.log(event.srcElement);
-                let latitude = event.target.getAttribute("latitude");
-                let longitude = event.target.getAttribute("longitude");
+
+                let latitude = event.srcElement.selectedOptions[0].attributes.latitude.value;
+                let longitude = event.srcElement.selectedOptions[0].attributes.longitude.value;
 
                 if (latitude && longitude){
                     this.sub(latitude, longitude);
+                }
+            },
+
+            async saveThisVue(){
+                if (this.before != '' && this.after != ''){
+                    let question = await axios.post('/save' , {
+                        params: {
+                            file1: this.before,
+                            file2: this.after,
+                            titre: "Une comparaison de ouf 😱😱",
+                            description: "Voici le top 10 des raisons pour lesquelles cette comparaison est incroyable, la n°3 va vous faire halluciner !"
+                        }
+                    })
+                    console.log(question.data);
+                    return true;
                 }
             }
         }
