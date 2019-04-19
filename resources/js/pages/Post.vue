@@ -6,7 +6,9 @@
 
         <div class="row ">
             <nav class="col-md-2 d-none d-md-block bg-light sidebar border-right border-top border-dark h-100">
+
                 <div class="row justify-content-center pt-4">
+                    <form class="" action="#" method="get">
                     <div class=" Adresse">
                         <div class="form-group col-md-12">
                             <label for="inputAdresse">Adresse</label>
@@ -46,18 +48,18 @@
                     <div class="row justify-content-center">
                         <button v-on:click="sub()" type="button" name="button" class="btn btn-dark">Chercher</button>
                     </div>
+                </form>
+            </div>
 
-                </div>
+            <br />
+            <div class="row justify-content-center">
+                <button v-on:click="switchImages()" type="submit" class="btn btn-dark">Switch images</button>
+            </div>
+            <br />
 
-                <br />
-                <div class="row justify-content-center">
-                    <button v-on:click="switchImages()" type="button" class="btn btn-dark">Switch images</button>
-                </div>
-                <br />
-
-                <!-- affiche un choix si plusieurs résultats ont été trouvés -->
-                <div id="select" class="row justify-content-center">
-                </div>
+            <!-- affiche un choix si plusieurs résultats ont été trouvés -->
+            <div id="select" class="row justify-content-center">
+            </div>
 
             </nav>
             <div class="col-md-9 ml-sm-auto col-lg-10 px-4">
@@ -94,6 +96,7 @@
             if(document.location != 'http://localhost:3000/post'){
                 console.log(this.GGET('voila'))}
             },
+            // document.location.hash
 
         methods:{
             async sub(latitude = "", longitude = ""){
