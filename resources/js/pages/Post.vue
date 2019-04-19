@@ -39,11 +39,7 @@
 
                         <div class="form-group col-md-12">
                             <label for="inputDate2">Date 2</label>
-<<<<<<< HEAD
-                            <datetime v-model="date2" input-id="inputDate2" format="yyyyMMdd"></datetime>
-=======
                             <datetime v-model="date2" input-id="inputDate2" input-class="form-control"></datetime>
->>>>>>> ac46363ffc80d36d8793d7b18e63e8ab77a3c7fb
                         </div>
                     </div>
 
@@ -100,15 +96,6 @@
             },
 
         methods:{
-<<<<<<< HEAD
-            async sub(){
-                let latitude = document.getElementById('inputLatitude').value;
-                let longitude = document.getElementById('inputLongitude').value;
-
-                // if no latitude or longitude has been given, use those from the address
-
-                if (!latitude || !longitude){
-=======
             async sub(latitude = "", longitude = ""){
 
                 document.getElementById('loading').classList.remove("d-none");
@@ -120,7 +107,6 @@
 
                 // if no latitude or longitude has been given, use those from the address
                 if (latitude == "" || longitude == ""){
->>>>>>> ac46363ffc80d36d8793d7b18e63e8ab77a3c7fb
                     let street = document.getElementById('inputAdresse').value;
                     let city = document.getElementById('inputVille').value;
                     let postalCode = document.getElementById('inputCodePostal').value;
@@ -133,8 +119,8 @@
                     longitude = coordinates[1];
                 }
 
-                let date1 = document.getElementById('inputDate1').value;
-                let date2 = document.getElementById('inputDate2').value;
+                let date1 = await this.dateRefactor(document.getElementById('inputDate1').value);
+                let date2 = await this.dateRefactor(document.getElementById('inputDate2').value);
 
                 this.imgCharge(latitude, longitude, date2, date1)
 
