@@ -92,10 +92,6 @@
                 this.imgCharge(this.GGET().lat, this.GGET().lon, this.GGET().date2, this.GGET().date1)
             }
         },
-<<<<<<< HEAD
-
-=======
->>>>>>> c6b4cb55f178491c2824b0e373e9e9b215fc9a6c
 
         methods:{
             async sub(latitude = "", longitude = ""){
@@ -252,7 +248,7 @@
 
                     // add the different addresses
                     addressList.forEach(address => {
-                        
+
                         let option = document.createElement('option');
                         let placeName = document.createTextNode(address.display_name+" ("+address.type+")");
 
@@ -270,6 +266,7 @@
             },
 
             changeSelected(event){
+                console.log(event.srcElement);
                 let latitude = event.target.getAttribute("latitude");
                 let longitude = event.target.getAttribute("longitude");
 
