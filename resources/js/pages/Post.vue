@@ -200,7 +200,11 @@
                 let img = this.before;
                 this.before = this.after;
                 this.after = img;
+                let date = document.getElementById('date1').innerHTML;
+                document.getElementById('date1').innerHTML = document.getElementById('date2').innerHTML;
+                document.getElementById('date2').innerHTML = date;
             },
+            
             GGET(param) {
             	var vars = {};
             	window.location.href.replace(
