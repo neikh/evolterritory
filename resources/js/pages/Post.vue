@@ -1,7 +1,7 @@
 <template>
     <div class="container-fluid">
         <div id="loading" class="fixed-top d-none">
-            <vue-loader direction="top-right" image="https://loading.io/spinners/coolors/lg.palette-rotating-ring-loader.gif" text="Chargement..." text-color="#786fa6" :background="'#ea8685'" />
+            <vue-loader direction="top-right" image="https://loading.io/spinners/coolors/lg.palette-rotating-ring-loader.gif" text="Loading..." text-color="#786fa6" :background="'#ea8685'" />
         </div>
 
         <div class="row ">
@@ -43,8 +43,12 @@
                         </div>
                     </div>
 
-                    <div class="row justify-content-center">
-                        <button v-on:click="sub()" type="button" name="button" class="btn btn-dark">Chercher</button>
+                    <div class="justify-content-center">
+                        <button v-on:click="sub()" type="button" name="button" class="btn btn-dark">Search</button>
+                    </div>
+
+                    <div class="justify-content-center ml-3">
+                        <button v-on:click="saveThisVue()" type="button" name="button" class="btn btn-dark">Save</button>
                     </div>
 
                 </div>
@@ -271,6 +275,21 @@
 
                 if (latitude && longitude){
                     this.sub(latitude, longitude);
+                }
+            },
+
+            async saveThisVue(){
+                if (this.before != '' && this.after != ''){
+                    let question = await axios.post('/save' , {
+                        params: {
+                            file1: this.before,
+                            file2: this.after,
+                            titre: "Une comparaison de ouf 😱😱",
+                            description: "Voici le top 10 des raisons pour lesquelles cette comparaison est incroyable, la n°3 va vous faire halluciner !"
+                        }
+                    })
+                    console.log(question.data);
+                    return true;
                 }
             }
         }
