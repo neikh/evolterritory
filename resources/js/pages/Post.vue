@@ -84,6 +84,7 @@
             vueLoader,
             Datetime
         },
+
         data () {
             return {
                 before: '',
@@ -92,14 +93,12 @@
                 date2: '2017-02-22T00:00:00.000Z'
             }
         },
+
         mounted() {
             if(document.location.hash){
                 this.imgCharge(this.GGET().lat, this.GGET().lon, this.GGET().date2, this.GGET().date1)
             }
-
-
-            },
-
+        },
 
         methods:{
             async sub(latitude = "", longitude = ""){
@@ -130,7 +129,6 @@
                 let date2 = await this.dateRefactor(document.getElementById('inputDate2').value);
 
                 this.imgCharge(latitude, longitude, date2, date1)
-
             },
 
             async imgCharge(latitude, longitude, date2, date1) {
@@ -153,8 +151,6 @@
                 await upload1;
                 await upload2;
                 document.getElementById('loading').classList.add("d-none");
-
-
             },
 
             async getImage(latitude, longitude, date){
@@ -284,7 +280,7 @@
                 }
             }
         }
-     }
+    }
 </script>
 
 <style>
