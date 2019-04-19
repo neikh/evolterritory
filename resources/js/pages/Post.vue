@@ -77,6 +77,7 @@
             vueLoader,
             Datetime
         },
+
         data () {
             return {
                 before: '',
@@ -85,12 +86,16 @@
                 date2: '2017-02-22T00:00:00.000Z'
             }
         },
+
         mounted() {
             if(document.location.hash){
                 this.imgCharge(this.GGET().lat, this.GGET().lon, this.GGET().date2, this.GGET().date1)
             }
         },
+<<<<<<< HEAD
 
+=======
+>>>>>>> c6b4cb55f178491c2824b0e373e9e9b215fc9a6c
 
         methods:{
             async sub(latitude = "", longitude = ""){
@@ -121,7 +126,6 @@
                 let date2 = await this.dateRefactor(document.getElementById('inputDate2').value);
 
                 this.imgCharge(latitude, longitude, date2, date1)
-
             },
 
             async imgCharge(latitude, longitude, date2, date1) {
@@ -145,8 +149,6 @@
                 await upload1;
                 await upload2;
                 document.getElementById('loading').classList.add("d-none");
-
-
             },
 
             async getImage(latitude, longitude, date){
@@ -241,28 +243,27 @@
                     selectDiv.addEventListener("click", this.changeSelected);
 
                     // add user instructions
-                    let label = document.createElement("H3");
+                    let label = document.createElement("p");
                     let labelText = document.createTextNode("Several results have been found, select one to display :");
                     label.appendChild(labelText);
                     selectDiv.appendChild(label);
 
+                    let select = document.createElement("select");
+
                     // add the different addresses
                     addressList.forEach(address => {
-                        let li = document.createElement("LI");
-                        let radio = document.createElement('input');
+                        
+                        let option = document.createElement('option');
                         let placeName = document.createTextNode(address.display_name+" ("+address.type+")");
 
-                        radio.setAttribute('type', 'radio');
-                        radio.setAttribute('name', 'choice');
-                        radio.setAttribute('latitude', address.lat);
-                        radio.setAttribute('longitude', address.lon);
+                        option.setAttribute('latitude', address.lat);
+                        option.setAttribute('longitude', address.lon);
+                        option.appendChild(placeName);
 
-                        li.appendChild(radio);
-                        li.appendChild(placeName);
-                        selectDiv.appendChild(li);
+                        select.appendChild(option);
                     });
 
-                    selectDiv.querySelector("input").checked = true;
+                    selectDiv.appendChild(select);
                 }
 
                 return [addressList[0].lat, addressList[0].lon];
@@ -277,7 +278,7 @@
                 }
             }
         }
-     }
+    }
 </script>
 
 <style>
