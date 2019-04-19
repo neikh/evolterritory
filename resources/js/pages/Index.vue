@@ -6,8 +6,10 @@
         <h1 id="title"></h1>
         <div class="row justify-content-center">
             <div class="col-md-12">
+                <div id="date1" class="d-inline font-weight-bold">2014-08-01</div>
+                <div id="date2" class="d-inline font-weight-bold float-right">2016-08-01</div>
                 <div class="card">
-                    <image-compare class="img-fluid" :before="before" :after="after" :padding="{ left: 50, right: 50 }">
+                    <image-compare class="img-fluid" :before="before" :after="after" :padding="{ left: 0, right: 0 }">
                         <i class="fa fa-angle-left" aria-hidden="true" slot="icon-left"></i>
                         <i class="fa fa-angle-right" aria-hidden="true" slot="icon-right"></i>
                     </image-compare>
@@ -32,7 +34,7 @@
         methods:{
 
             async randomName(){
-                let city = ['Grenoble', 'Paris', 'Lyon', 'Bordeaux', 'Nice', 'Caen', 'Rouen', 'Lille', 'Lyon', 'Marseille', 'Nice', 'Toulouse', 'Evreux', 'Narbonne', 'Brest', 'Le Havre', 'Rennes', 'Lens', 'Dunkerque', 'Strasbourg', 'Mulhouse', 'Tarbes', 'Perpignan', 'Montpellier'];
+                let city = ['Grenoble', 'Paris', 'Lyon', 'Bordeaux', 'Nice', 'Caen', 'Rouen', 'Lille', 'Lyon', 'Marseille', 'Nice', 'Toulouse', 'Evreux', 'Narbonne', 'Brest', 'Le Havre', 'Rennes', 'Lens', 'Dunkerque', 'Strasbourg', 'Mulhouse', 'Tarbes', 'Perpignan', 'Montpellier', 'Tokyo', 'Kawasaki', 'Nagoya', 'Kyoto', 'Nagano', 'Shizuoka', 'Fukushima', 'Sapporo', 'Fukuoka', 'Hiroshima', 'Nagasaki'];
                 return city[Math.floor(Math.random() * Math.floor(city.length))];
             },
 
