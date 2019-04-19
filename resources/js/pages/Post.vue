@@ -177,12 +177,13 @@
                         }
 
                     });
+
+                    return response.data;
                 } catch(e){
                     this.$swal('Something went wrong with the NASA API. The location may not exist.');
                     document.getElementById('loading').classList.add("d-none");
                 }
 
-                return response.data;
             },
 
             async storePic(picture){
@@ -228,11 +229,12 @@
 
                     let coordinates = this.selectOne(response.data);
 
+                    return coordinates;
                 } catch(e){
                     this.$swal('Something went wrong with the OpenStreetMap API. The location may not exist.');
                     document.getElementById('loading').classList.add("d-none");
                 }
-                return coordinates;
+
             },
 
             dateRefactor(date){
