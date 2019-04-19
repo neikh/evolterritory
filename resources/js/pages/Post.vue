@@ -244,28 +244,27 @@
                     selectDiv.addEventListener("click", this.changeSelected);
 
                     // add user instructions
-                    let label = document.createElement("H3");
+                    let label = document.createElement("p");
                     let labelText = document.createTextNode("Several results have been found, select one to display :");
                     label.appendChild(labelText);
                     selectDiv.appendChild(label);
 
+                    let select = document.createElement("select");
+
                     // add the different addresses
                     addressList.forEach(address => {
-                        let li = document.createElement("LI");
-                        let radio = document.createElement('input');
+                        
+                        let option = document.createElement('option');
                         let placeName = document.createTextNode(address.display_name+" ("+address.type+")");
 
-                        radio.setAttribute('type', 'radio');
-                        radio.setAttribute('name', 'choice');
-                        radio.setAttribute('latitude', address.lat);
-                        radio.setAttribute('longitude', address.lon);
+                        option.setAttribute('latitude', address.lat);
+                        option.setAttribute('longitude', address.lon);
+                        option.appendChild(placeName);
 
-                        li.appendChild(radio);
-                        li.appendChild(placeName);
-                        selectDiv.appendChild(li);
+                        select.appendChild(option);
                     });
 
-                    selectDiv.querySelector("input").checked = true;
+                    selectDiv.appendChild(select);
                 }
 
                 return [addressList[0].lat, addressList[0].lon];
