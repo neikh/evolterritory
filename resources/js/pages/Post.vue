@@ -6,9 +6,7 @@
 
         <div class="row ">
             <nav class="col-md-2 d-none d-md-block bg-light sidebar border-right border-top border-dark h-100">
-
                 <div class="row justify-content-center pt-4">
-                    <form class="" action="#" method="get">
                     <div class=" Adresse">
                         <div class="form-group col-md-12">
                             <label for="inputAdresse">Adresse</label>
@@ -52,19 +50,14 @@
                     <div class="row justify-content-center mt-3">
                         <button v-on:click="saveThisVue()" type="button" name="button" class="btn btn-dark">Save</button>
                     </div>
-                </form>
-            </div>
-
-            <br />
-            <div class="row justify-content-center">
-                <button v-on:click="switchImages()" type="submit" class="btn btn-dark">Switch images</button>
-            </div>
-            <br />
-
-            <!-- affiche un choix si plusieurs résultats ont été trouvés -->
-            <div id="select" class="row justify-content-center">
-            </div>
-
+                </div>
+                <div class="row justify-content-center">
+                    <button v-on:click="switchImages()" type="submit" class="btn btn-dark">Switch images</button>
+                </div>
+                <br />
+                <!-- affiche un choix si plusieurs résultats ont été trouvés -->
+                <div id="select" class="row justify-content-center">
+                </div>
             </nav>
             <div class="col-md-9 ml-sm-auto col-lg-10 px-4">
                 <div id="date1" class="d-inline font-weight-bold"></div>
@@ -141,14 +134,15 @@
 
                 document.location.hash = 'lat='+latitude+'&lon='+longitude+'&date1='+date1+'&date2='+date2
 
-                document.getElementById('date1').textContent = date1;
-                document.getElementById('date2').textContent = date2;
 
-                let img2 = this.getImage(latitude, longitude, date2);
-                let img1 = this.getImage(latitude, longitude, date1);
-                this.before = await img1;
-                this.after = await img2;
 
+                let img1 = await this.getImage(latitude, longitude, date1);
+                let img2 = await this.getImage(latitude, longitude, date2);
+                this.before = img1.url;
+                this.after = img2.url;
+                console.log(img1.date)
+                document.getElementById('date1').textContent = img1.date;
+                document.getElementById('date2').textContent = img2.date;
                 let upload1 = this.storePic(this.before);
                 let upload2 = this.storePic(this.after);
 
@@ -168,9 +162,10 @@
                         cloud_score: 'True',
                         api_key: 'f8Bf5QWZSK50tRZOZq7BCuHCpICDTqs62MPmG9xt'
                     }
+
                 });
 
-                return response.data.url;
+                return response.data;
             },
 
             async storePic(picture){
