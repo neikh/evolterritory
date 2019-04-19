@@ -35,7 +35,7 @@ const index = new Vue({
     },
     computed: {
         ViewComponent () {
-            
+
             const matchingView = routes[this.currentRoute]
             return matchingView
               ? require('./pages/' + matchingView).default

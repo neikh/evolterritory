@@ -6,7 +6,9 @@
 
         <div class="row ">
             <nav class="col-md-2 d-none d-md-block bg-light sidebar border-right border-top border-dark h-100">
+
                 <div class="row justify-content-center pt-4">
+                    <form class="" action="#" method="get">
                     <div class=" Adresse">
                         <div class="form-group col-md-12">
                             <label for="inputAdresse">Adresse</label>
@@ -50,18 +52,18 @@
                     <div class="justify-content-center ml-3">
                         <button v-on:click="saveThisVue()" type="button" name="button" class="btn btn-dark">Save</button>
                     </div>
+                </form>
+            </div>
 
-                </div>
+            <br />
+            <div class="row justify-content-center">
+                <button v-on:click="switchImages()" type="submit" class="btn btn-dark">Switch images</button>
+            </div>
+            <br />
 
-                <br />
-                <div class="row justify-content-center">
-                    <button v-on:click="switchImages()" type="button" class="btn btn-dark">Switch images</button>
-                </div>
-                <br />
-
-                <!-- affiche un choix si plusieurs résultats ont été trouvés -->
-                <div id="select" class="row justify-content-center">
-                </div>
+            <!-- affiche un choix si plusieurs résultats ont été trouvés -->
+            <div id="select" class="row justify-content-center">
+            </div>
 
             </nav>
             <div class="col-md-9 ml-sm-auto col-lg-10 px-4">
@@ -86,6 +88,7 @@
             vueLoader,
             Datetime
         },
+
         data () {
             return {
                 before: '',
@@ -94,10 +97,12 @@
                 date2: '2017-02-22T00:00:00.000Z'
             }
         },
+
         mounted() {
-            if(document.location != 'http://localhost:3000/post'){
-                console.log(this.GGET('voila'))}
-            },
+            if(document.location.hash){
+                this.imgCharge(this.GGET().lat, this.GGET().lon, this.GGET().date2, this.GGET().date1)
+            }
+        },
 
         methods:{
             async sub(latitude = "", longitude = ""){
@@ -128,12 +133,14 @@
                 let date2 = await this.dateRefactor(document.getElementById('inputDate2').value);
 
                 this.imgCharge(latitude, longitude, date2, date1)
-
             },
 
             async imgCharge(latitude, longitude, date2, date1) {
 
                 document.getElementById('loading').classList.remove("d-none");
+
+                document.location.hash = 'lat='+latitude+'&lon='+longitude+'&date1='+date1+'&date2='+date2
+
                 document.getElementById('date1').textContent = date1;
                 document.getElementById('date2').textContent = date2;
 
@@ -148,7 +155,6 @@
                 await upload1;
                 await upload2;
                 document.getElementById('loading').classList.add("d-none");
-
             },
 
             async getImage(latitude, longitude, date){
@@ -184,8 +190,8 @@
             },
             GGET(param) {
             	var vars = {};
-            	window.location.href.replace( location.hash, '' ).replace(
-            		/[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
+            	window.location.href.replace(
+            		/[#&]+([^=&]+)=?([^&]*)?/gi, // regexp
             		function( m, key, value ) { // callback
             			vars[key] = value !== undefined ? value : '';
             		}
@@ -242,28 +248,27 @@
                     selectDiv.addEventListener("click", this.changeSelected);
 
                     // add user instructions
-                    let label = document.createElement("H3");
+                    let label = document.createElement("p");
                     let labelText = document.createTextNode("Several results have been found, select one to display :");
                     label.appendChild(labelText);
                     selectDiv.appendChild(label);
 
+                    let select = document.createElement("select");
+
                     // add the different addresses
                     addressList.forEach(address => {
-                        let li = document.createElement("LI");
-                        let radio = document.createElement('input');
+                        
+                        let option = document.createElement('option');
                         let placeName = document.createTextNode(address.display_name+" ("+address.type+")");
 
-                        radio.setAttribute('type', 'radio');
-                        radio.setAttribute('name', 'choice');
-                        radio.setAttribute('latitude', address.lat);
-                        radio.setAttribute('longitude', address.lon);
+                        option.setAttribute('latitude', address.lat);
+                        option.setAttribute('longitude', address.lon);
+                        option.appendChild(placeName);
 
-                        li.appendChild(radio);
-                        li.appendChild(placeName);
-                        selectDiv.appendChild(li);
+                        select.appendChild(option);
                     });
 
-                    selectDiv.querySelector("input").checked = true;
+                    selectDiv.appendChild(select);
                 }
 
                 return [addressList[0].lat, addressList[0].lon];
@@ -293,7 +298,7 @@
                 }
             }
         }
-     }
+    }
 </script>
 
 <style>
