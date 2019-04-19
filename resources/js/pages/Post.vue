@@ -11,7 +11,7 @@
         </div>
 
         <div class="row">
-            <nav class="col-md-3 col-sm-12 d-md-block bg-light sidebar border-right border-top border-dark h-100">
+            <nav class="col-md-3 col-sm-12 d-md-block bg-light sidebar m-2 border border-dark h-100">
                 <div class="row justify-content-center pt-4">
                     <div class=" Adresse">
                         <div class="form-group col-md-12">
@@ -62,7 +62,7 @@
                 </div>
                 <br />
                 <!-- affiche un choix si plusieurs résultats ont été trouvés -->
-                <div id="select" class="row justify-content-center pl-4 pr-4">
+                <div id="select" class="row justify-content-center pl-4 pr-4 mb-3">
                 </div>
             </nav>
 
