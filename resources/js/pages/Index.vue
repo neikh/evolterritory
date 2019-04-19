@@ -34,7 +34,7 @@
         methods:{
 
             async randomName(){
-                let city = ['Grenoble', 'Paris', 'Lyon', 'Bordeaux', 'Nice', 'Caen', 'Rouen', 'Lille', 'Lyon', 'Marseille', 'Nice', 'Toulouse', 'Evreux', 'Narbonne', 'Brest', 'Le Havre', 'Rennes', 'Lens', 'Dunkerque', 'Strasbourg', 'Mulhouse', 'Tarbes', 'Perpignan', 'Montpellier'];
+                let city = ['Grenoble', 'Paris', 'Lyon', 'Bordeaux', 'Nice', 'Caen', 'Rouen', 'Lille', 'Lyon', 'Marseille', 'Nice', 'Toulouse', 'Evreux', 'Narbonne', 'Brest', 'Le Havre', 'Rennes', 'Lens', 'Dunkerque', 'Strasbourg', 'Mulhouse', 'Tarbes', 'Perpignan', 'Montpellier', 'Tokyo', 'Kawasaki', 'Nagoya', 'Kyoto', 'Nagano', 'Shizuoka', 'Fukushima', 'Sapporo', 'Fukuoka', 'Hiroshima', 'Nagasaki'];
                 return city[Math.floor(Math.random() * Math.floor(city.length))];
             },
 
