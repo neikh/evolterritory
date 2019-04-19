@@ -202,7 +202,7 @@
                     }
                 });
 
-                let coordinates = [response.data[0].lat, response.data[0].lon];
+                let coordinates = this.selectOne(response.data);
 
                 return coordinates;
             },
