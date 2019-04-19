@@ -45,11 +45,11 @@
                         </div>
                     </div>
 
-                    <div class="justify-content-center">
+                    <div class="row justify-content-center">
                         <button v-on:click="sub()" type="button" name="button" class="btn btn-dark">Search</button>
                     </div>
 
-                    <div class="justify-content-center ml-3">
+                    <div class="row justify-content-center mt-3">
                         <button v-on:click="saveThisVue()" type="button" name="button" class="btn btn-dark">Save</button>
                     </div>
                 </form>
