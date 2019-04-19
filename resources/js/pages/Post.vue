@@ -119,6 +119,7 @@
                     longitude = coordinates[1];
                 }
 
+
                 let date1 = await this.dateRefactor(document.getElementById('inputDate1').value);
                 let date2 = await this.dateRefactor(document.getElementById('inputDate2').value);
 
@@ -129,6 +130,9 @@
             async imgCharge(latitude, longitude, date2, date1) {
 
                 document.getElementById('loading').classList.remove("d-none");
+                document.getElementById('date1').textContent = date1;
+                document.getElementById('date2').textContent = date2;
+
                 let img2 = this.getImage(latitude, longitude, date2);
                 let img1 = this.getImage(latitude, longitude, date1);
                 this.before = await img1;
