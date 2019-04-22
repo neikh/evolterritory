@@ -336,26 +336,37 @@
 
                     document.getElementById('save').classList.remove("d-none");
                     if (this.before != '' && this.after != ''){
-                        let question = await axios.post('/save' , {
-                            params: {
-                                file1: this.before,
-                                file2: this.after,
-                                titre: "Une comparaison de ouf 😱😱",
-                                description: "Voici le top 10 des raisons pour lesquelles cette comparaison est incroyable, la n°3 va vous faire halluciner !"
-                            }
-                        })
 
-                        document.getElementById('save').classList.add("d-none");
-                        
-                        this.$swal.fire({
-                            position: 'top-end',
-                            type: 'success',
-                            title: 'Your comparison was successfully saved',
-                            showConfirmButton: false,
-                            timer: 2500
-                        })
+                        try {
+                            let question = await axios.post('/save' , {
+                                params: {
+                                    file1: this.before,
+                                    file2: this.after,
+                                    titre: "Une comparaison de ouf 😱😱",
+                                    description: "Voici le top 10 des raisons pour lesquelles cette comparaison est incroyable, la n°3 va vous faire halluciner !"
+                                }
+                            })
 
-                        return true;
+                            document.getElementById('save').classList.add("d-none");
+                            
+                            this.$swal.fire({
+                                position: 'top-end',
+                                type: 'success',
+                                title: 'Your comparison was successfully saved',
+                                showConfirmButton: false,
+                                timer: 2500
+                            })
+
+                            return true;
+                        } catch(e){
+                            this.$swal.fire({
+                                position: 'top-end',
+                                type: 'error',
+                                title: 'Something went wrong',
+                                showConfirmButton: false,
+                                timer: 2500
+                            })
+                        }
                     }
                 }
 
