@@ -6,9 +6,6 @@
         <div id="save" class="fixed-top d-none">
             <vue-loader direction="top-right" image="https://loading.io/spinners/coolors/lg.palette-rotating-ring-loader.gif" text="Saving..." text-color="#786fa6" :background="'#ea8685'" />
         </div>
-        <div id="success" class="alert alert-success position-fixed fixed-top d-none" role="alert">
-            Your beautiful post made with awwesome pictures have been successfully created! Keep up the good work!
-        </div>
 
         <div class="row">
             <nav class="col-md-3 col-sm-12 d-md-block bg-light sidebar m-2 border border-dark h-100">
@@ -210,7 +207,7 @@
                 document.getElementById('date1').innerHTML = document.getElementById('date2').innerHTML;
                 document.getElementById('date2').innerHTML = date;
             },
-            
+
             GGET(param) {
             	var vars = {};
             	window.location.href.replace(
@@ -346,11 +343,11 @@
                         })
 
                         document.getElementById('save').classList.add("d-none");
-                        
+
                         this.$swal.fire({
                             position: 'top-end',
                             type: 'success',
-                            title: 'Your comparison was successfully saved',
+                            title: 'Comparison saved',
                             showConfirmButton: false,
                             timer: 2500
                         })
