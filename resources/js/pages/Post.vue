@@ -108,7 +108,10 @@
             async sub(latitude = "", longitude = "", valid = false){
 
                 if(!this.isFormValid('search') && valid == false){
-                    this.$swal('The form is not filled correctly.');
+                    this.$swal.fire({
+                        type: 'error',
+                        title: 'The form is not filled correctly.',
+                    })
                 } else {
 
                     document.getElementById('loading').classList.remove("d-none");
@@ -180,7 +183,10 @@
 
                     return response.data;
                 } catch(e){
-                    this.$swal('Something went wrong with the NASA API. The location may not exist.');
+                     this.$swal.fire({
+                        type: 'error',
+                        title: 'Something went wrong with the NASA API. The location may not exist.',
+                    })
                     document.getElementById('loading').classList.add("d-none");
                 }
 
@@ -235,7 +241,10 @@
 
                     return coordinates;
                 } catch(e){
-                    this.$swal('Something went wrong with the OpenStreetMap API. The location may not exist.');
+                    this.$swal.fire({
+                        type: 'error',
+                        title: 'Something went wrong with the OpenStreetMap API. The location may not exist.',
+                    })
                     document.getElementById('loading').classList.add("d-none");
                 }
 
@@ -314,9 +323,15 @@
                 let auth = document.head.querySelector('meta[name="login-status"]').content;
 
                 if(!this.isFormValid('save')){
-                    this.$swal('There is no pictures to save.');
+                    this.$swal.fire({
+                        type: 'error',
+                        title: 'There is no pictures to save.',
+                    })
                 } else if (auth === "") {
-                     this.$swal('You have to be logged to save a comparison.');
+                     this.$swal.fire({
+                        type: 'error',
+                        title: 'You have to be logged to save a comparison.',
+                    })
                 } else {
 
                     document.getElementById('save').classList.remove("d-none");

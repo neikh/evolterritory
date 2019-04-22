@@ -5,10 +5,16 @@ import VueSweetalert2 from 'vue-sweetalert2';
 // You need a specific loader for CSS files
 import 'vue-datetime/dist/vue-datetime.css';
 import VueImageCompare from 'vue-image-compare';
+ 
+const options = {
+  confirmButtonColor: '#343a40',
+  cancelButtonColor: '#ff7674'
+}
+ 
+Vue.use(VueSweetalert2, options)
 
 Vue.use(Datetime);
 Vue.use(VueImageCompare);
-Vue.use(VueSweetalert2);
 
 require('./bootstrap');
 
