@@ -6,9 +6,6 @@
         <div id="save" class="fixed-top d-none">
             <vue-loader direction="top-right" image="https://loading.io/spinners/coolors/lg.palette-rotating-ring-loader.gif" text="Saving..." text-color="#786fa6" :background="'#ea8685'" />
         </div>
-        <div id="success" class="alert alert-success position-fixed fixed-top d-none" role="alert">
-            Your beautiful post made with awwesome pictures have been successfully created! Keep up the good work!
-        </div>
 
         <div class="row">
             <nav class="col-md-3 col-sm-12 d-md-block bg-light sidebar m-2 border border-dark h-100">
@@ -210,7 +207,7 @@
                 document.getElementById('date1').innerHTML = document.getElementById('date2').innerHTML;
                 document.getElementById('date2').innerHTML = date;
             },
-            
+
             GGET(param) {
             	var vars = {};
             	window.location.href.replace(
@@ -333,32 +330,49 @@
                         title: 'You have to be logged to save a comparison.',
                     })
                 } else {
-
-                    document.getElementById('save').classList.remove("d-none");
+                    
                     if (this.before != '' && this.after != ''){
 
                         try {
-                            let question = await axios.post('/save' , {
-                                params: {
-                                    file1: this.before,
-                                    file2: this.after,
-                                    titre: "Une comparaison de ouf 😱😱",
-                                    description: "Voici le top 10 des raisons pour lesquelles cette comparaison est incroyable, la n°3 va vous faire halluciner !"
+                            let form =  await this.$swal.mixin({
+                                input: 'text',
+                                confirmButtonText: 'Next &rarr;',
+                                showCancelButton: true,
+                                progressSteps: ['1', '2']
+                                }).queue([
+                                {
+                                    title: 'Give a title for the comparison',
+                                },
+                                'Give a description for the comparison'
+                                ]).then( async (result) => {
+                                if (result.value) {
+                                    document.getElementById('save').classList.remove("d-none");
+                                    
+                                    let question = await axios.post('/save' , {
+                                        params: {
+                                            file1: this.before,
+                                            file2: this.after,
+                                            titre: result.value[0],
+                                            description: result.value[1]
+                                        }
+                                    })
+
+                                    document.getElementById('save').classList.add("d-none");
+                                    
+                                    this.$swal.fire({
+                                        position: 'top-end',
+                                        type: 'success',
+                                        title: 'Your comparison was successfully saved',
+                                        showConfirmButton: false,
+                                        timer: 2500
+                                    })
                                 }
                             })
 
-                            document.getElementById('save').classList.add("d-none");
-                            
-                            this.$swal.fire({
-                                position: 'top-end',
-                                type: 'success',
-                                title: 'Your comparison was successfully saved',
-                                showConfirmButton: false,
-                                timer: 2500
-                            })
-
                             return true;
+
                         } catch(e){
+                            document.getElementById('save').classList.add("d-none");
                             this.$swal.fire({
                                 position: 'top-end',
                                 type: 'error',
