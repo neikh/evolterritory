@@ -346,16 +346,19 @@
                         })
 
                         document.getElementById('save').classList.add("d-none");
-                        document.getElementById('success').classList.remove("d-none");
-                        let temp = await this.sleep(4000);
-                        document.getElementById('success').classList.add("d-none");
+                        
+                        this.$swal.fire({
+                            position: 'top-end',
+                            type: 'success',
+                            title: 'Your comparison was successfully saved',
+                            showConfirmButton: false,
+                            timer: 2500
+                        })
+
                         return true;
                     }
                 }
 
-            },
-            sleep(ms) {
-                return new Promise(resolve => setTimeout(resolve, ms));
             },
 
             isFormValid(mode){
