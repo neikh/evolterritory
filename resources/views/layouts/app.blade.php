@@ -6,6 +6,9 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    
+    <!-- Authentified or not -->
+    <meta name="login-status" content="{{ Auth::check() }}">
 
     <title>{{ config('app.name', 'Evolterritory') }}</title>
 

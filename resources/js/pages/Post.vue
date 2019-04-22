@@ -311,8 +311,12 @@
 
             async saveThisVue(){
 
+                let auth = document.head.querySelector('meta[name="login-status"]').content;
+
                 if(!this.isFormValid('save')){
                     this.$swal('There is no pictures to save.');
+                } else if (auth === "") {
+                     this.$swal('You have to be logged to save a comparison.');
                 } else {
 
                     document.getElementById('save').classList.remove("d-none");
