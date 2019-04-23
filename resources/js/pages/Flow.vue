@@ -4,30 +4,31 @@
             <b-tab title="New" active><p>I'm the first tab</p></b-tab>
             <b-tab title="Hot"><p>I'm the second tab</p></b-tab>
         </b-tabs>
-        <ul id="example-1">
-            <li v-for="item in response.data">
-                {{ item }}
-            </li>
-        </ul>
+        <div v-for="item in response.data">
+            <flowItem :titre="titre" :description="description" ></flowItem>
+        </div>
     </div>
 </template>
 
 <script>
     import flowItem from '../components/flowElements';
     export default {
+       item: null,
         components: {
            flowItem
         },
 
         data () {
             return {
-               response: ''
+               response: '',
+               titre: '',
+               description: ''
             }
         },
 
         async mounted() {
-             const response = await axios.get('flow/new')
-             console.log(response.data);
+             this.response = await axios.get('flow/new')
+             this.item = response.data;
         }
     }
 </script>
