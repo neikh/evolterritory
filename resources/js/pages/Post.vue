@@ -33,13 +33,13 @@
                     <div class="row mx-auto">
                         <div class="form-group col-md-12">
                             <label for="inputDate1">Date 1</label>
-                            <datetime v-model="date1" input-id="inputDate1" input-class="form-control"></datetime>
+                            <datetime v-model="date1" input-id="inputDate1" input-class="form-control" min-datetime="2014-01-01T00:00:00.000Z" max-datetime="2017-05-01T00:00:00.000Z"></datetime>
                             <!-- :format="{ year: 'numeric', month: 'numeric', day: 'numeric'}" -->
                         </div>
 
                         <div class="form-group col-md-12">
                             <label for="inputDate2">Date 2</label>
-                            <datetime v-model="date2" input-id="inputDate2" input-class="form-control"></datetime>
+                            <datetime v-model="date2" input-id="inputDate2" input-class="form-control" min-datetime="2014-01-01T00:00:00.000Z" max-datetime="2017-05-01T00:00:00.000Z"></datetime>
                         </div>
                     </div>
 
