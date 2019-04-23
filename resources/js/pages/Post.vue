@@ -14,7 +14,7 @@
                         </div>
                         <div class="form-group col-md-12">
                             <label for="inputVille">Ville</label>
-                            <input class="form-control" id="inputVille" placeholder="Ville">
+                            <input class="form-control" id="inputVille" placeholder="Ville" value="grenoble">
                         </div>
                         <div class="form-group col-md-12">
                             <label for="inputCodePostal">Code postal</label>
@@ -23,11 +23,11 @@
                     </div>
                     <div class="form-group col-md-6">
                         <label for="inputlatitude">Latitude</label>
-                        <input type="latitude" class="form-control" id="inputLatitude" value="25">
+                        <input type="latitude" class="form-control" id="inputLatitude">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="inputLongitude">Longitude</label>
-                        <input type="longitude" class="form-control" id="inputLongitude" value="40">
+                        <input type="longitude" class="form-control" id="inputLongitude">
                     </div>
 
                     <div class="row mx-auto">
@@ -56,7 +56,11 @@
                 </div>
                 <br />
                 <!-- affiche un choix si plusieurs résultats ont été trouvés -->
-                <div id="select" class="row justify-content-center pl-4 pr-4 mb-3">
+                <div id="select" class="row justify-content-center pl-4 pr-4 mb-3" v-if="addressList[1]">
+                    <p>Several results have been found, select one to display :</p>
+                    <select v-on:change="changeSelected($event)">
+                        <option v-for="address in addressList" :latitude="address.lat" :longitude="address.lon">{{ address.display_name }} ({{address.type}})</option>
+                    </select>
                 </div>
             </nav>
 
@@ -93,7 +97,8 @@
                 date2: '2017-02-22T00:00:00.000Z',
                 isLoading: false,
                 helper,
-                loadType: ''
+                loadType: '',
+                addressList: []
             }
         },
 
@@ -117,6 +122,9 @@
                     this.loadType = "Loading...";
 
                     if (latitude == "" || longitude == ""){
+                        this.addressList =[];
+                        this.addressList.sort();
+
                         latitude = document.getElementById('inputLatitude').value;
                         longitude = document.getElementById('inputLongitude').value;
                     }
@@ -228,7 +236,11 @@
                         }
                     });
 
-                    let coordinates = this.selectOne(response.data);
+                    // put the address list sent by nominatim in addressList so that vuejs can display it
+                    this.addressList = response.data;
+
+                    // returns the coordinates of the first address in the list
+                    let coordinates = [this.addressList[0].lat, this.addressList[0].lon];
 
                     return coordinates;
                 } catch(e){
@@ -239,43 +251,6 @@
                     this.isLoading = false;
                 }
 
-            },
-
-            //checks if more than one address has been retrieved by geocoding, and asks the user to choose one if so
-            selectOne(addressList){
-                let selectDiv = document.getElementById('select');
-                selectDiv.innerHTML = "";
-
-                if (addressList.length > 1){
-                    selectDiv.removeEventListener("change", this.changeSelected);
-                    selectDiv.addEventListener("change", this.changeSelected);
-
-                    // add user instructions
-                    let label = document.createElement("p");
-                    let labelText = document.createTextNode("Several results have been found, select one to display :");
-                    label.appendChild(labelText);
-                    selectDiv.appendChild(label);
-
-                    let select = document.createElement("select");
-                    select.classList.add("form-control");
-
-                    // add the different addresses
-                    addressList.forEach(address => {
-
-                        let option = document.createElement('option');
-                        let placeName = document.createTextNode(address.display_name+" ("+address.type+")");
-
-                        option.setAttribute('latitude', address.lat);
-                        option.setAttribute('longitude', address.lon);
-                        option.appendChild(placeName);
-
-                        select.appendChild(option);
-                    });
-
-                    selectDiv.appendChild(select);
-                }
-
-                return [addressList[0].lat, addressList[0].lon];
             },
 
             changeSelected(event){
