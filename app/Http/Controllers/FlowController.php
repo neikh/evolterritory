@@ -23,6 +23,11 @@ class FlowController extends Controller
      */
     public function index()
     {
+        return view('flow');
+    }
+
+    public function get()
+    {
         //récupérer les 10 derniers post par nombre de vote
         $hotPosts = \App\Post::orderBy('nb_vote', 'desc')
                ->take(10)
@@ -33,9 +38,6 @@ class FlowController extends Controller
                ->take(10)
                ->get();
 
-        return view('flow', array(
-			'hotPosts' => $hotPosts,
-			'newPosts' => $newPosts
-		));
+        return $newPosts;
     }
 }
