@@ -65,8 +65,8 @@
             </nav>
 
             <div class="col-md-8 col-lg-8 px-4">
-                <div id="date1" class="d-inline font-weight-bold"></div>
-                <div id="date2" class="d-inline font-weight-bold float-right"></div>
+                <div class="d-inline font-weight-bold">{{date1}}</div>
+                <div class="d-inline font-weight-bold float-right">{{date2}}</div>
                 <image-compare class="img-fluid" :before="before" :after="after" :padding="{ left: 1, right: 1 }">
                     <i class="fa fa-angle-left" aria-hidden="true" slot="icon-left"></i>
                     <i class="fa fa-angle-right" aria-hidden="true" slot="icon-right"></i>
@@ -122,7 +122,7 @@
                     this.loadType = "Loading...";
 
                     if (latitude == "" || longitude == ""){
-                        this.addressList =[];
+                        this.addressList = [];
                         this.addressList.sort();
 
                         latitude = document.getElementById('inputLatitude').value;
@@ -162,9 +162,6 @@
                 let img2 = await this.getImage(latitude, longitude, date2);
                 this.before = img2.url;
                 this.after = img1.url;
-                console.log(img1.date)
-                document.getElementById('date1').textContent = img1.date;
-                document.getElementById('date2').textContent = img2.date;
                 this.date1 = img1.date;
                 this.date2 = img2.date;
                 let upload1 = this.helper.storePic(this.before);
@@ -205,9 +202,10 @@
                 let img = this.before;
                 this.before = this.after;
                 this.after = img;
-                let date = document.getElementById('date1').innerHTML;
-                document.getElementById('date1').innerHTML = document.getElementById('date2').innerHTML;
-                document.getElementById('date2').innerHTML = date;
+                
+                let date = this.date1;
+                this.date1 = this.date2;
+                this.date2 = date;
             },
 
             GGET(param) {
