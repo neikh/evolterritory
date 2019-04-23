@@ -1,17 +1,27 @@
 <template>
-  <div class="card red lighten-2">
-    <div class="card-content white-text">
-      <span class="card-title">{{ pensee.user.name }}</span>
-      <p>{{ pensee.text }}</p>
-      <p><small>{{ pensee.created_at }}</small></p>
+<div class=" container d-flex">
+    <div class="card-deck mb-3 text-center">
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header">
+
+            </div>
+            <div class="card-body">
+
+            </div>
+            <div class="card-footer">
+
+            </div>
+        </div>
     </div>
-    <div v-if="deletable" class="card-action">
-      <a href="#" @click.prevent="deletePensee">Supprimer cette pensée</a>
-    </div>
-  </div>
+</div>
 </template>
 <script>
   export default {
     props: ['titre', 'description']
   }
 </script>
+<style>
+.container{
+    min-width: 300px;
+}
+</style>
