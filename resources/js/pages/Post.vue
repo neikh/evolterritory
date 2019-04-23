@@ -1,6 +1,6 @@
 <template>
     <div class="container-fluid">
-        <div id="loading" class="fixed-top" v-if="isLoading">
+        <div id="loading" class="fixed-top" v-show="isLoading">
             <vue-loader direction="top-right" image="https://loading.io/spinners/coolors/lg.palette-rotating-ring-loader.gif" v-bind:text="loadType" text-color="#786fa6" :background="'#ea8685'" />
         </div>
 
@@ -91,7 +91,7 @@
                 after: '',
                 date1: '2015-02-22T00:00:00.000Z',
                 date2: '2017-02-22T00:00:00.000Z',
-                isLoading: true,
+                isLoading: false,
                 helper,
                 loadType: ''
             }
