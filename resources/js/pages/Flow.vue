@@ -25,8 +25,62 @@
     </div> -->
     <div>
         <b-tabs content-class="mt-3" justified>
-            <b-tab title="First" active><p>I'm the first tab</p></b-tab>
-            <b-tab title="Second"><p>I'm the second tab</p></b-tab>
+            <b-tab title="Hot" active>
+                <div class="container d-flex">
+
+
+                <div class="card-deck mb-3 text-center">
+                    <div class="card mb-4 shadow-sm">
+                        <div class="card-header">
+aaaaaa
+                        </div>
+                        <div class="card-body">
+aaaa
+                        </div>
+                        <div class="card-footer">
+aaaaaaa
+                        </div>
+                    </div>
+                    <div class="card mb-4 shadow-sm">
+                        <div class="card-header">
+aaaaaa
+                        </div>
+                        <div class="card-body">
+aaaa
+                        </div>
+                        <div class="card-footer">
+aaaaaaa
+                        </div>
+                    </div>
+                    <div class="card mb-4 shadow-sm">
+                        <div class="card-header">
+aaaaaa
+                        </div>
+                        <div class="card-body">
+aaaa
+                        </div>
+                        <div class="card-footer">
+aaaaaaa
+                        </div>
+                    </div>
+                    <div class="card mb-4 shadow-sm">
+                        <div class="card-header">
+aaaaaa
+                        </div>
+                        <div class="card-body">
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                        </div>
+                        <div class="card-footer">
+aaaaaaa
+                        </div>
+                    </div>
+
+                </div>
+                </div>
+            </b-tab>
+            <b-tab title="New">
+
+            </b-tab>
         </b-tabs>
     </div>
 </template>
@@ -39,3 +93,9 @@
         }
     }
 </script>
+<style>
+.card{
+    /* min-height: 200px; */
+    min-width: 300px;
+}
+</style>

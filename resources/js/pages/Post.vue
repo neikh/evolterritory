@@ -148,7 +148,7 @@
                 this.isLoading = true;
                 this.loadType = "Loading...";
 
-                document.location.hash = 'lat='+latitude+'&lon='+longitude+'&date1='+date1+'&date2='+date2
+                document.location.hash = 'lat='+latitude+'&lon='+longitude+'&date1='+date1+'&date2='+date2;
 
                 let img1 = await this.getImage(latitude, longitude, date1);
                 let img2 = await this.getImage(latitude, longitude, date2);
