@@ -20,3 +20,5 @@ Route::post('/temp', 'ImageController@store');
 Route::get('/flow', 'FlowController@index');
 Route::get('/post', 'PostController@index');
 Route::post('/save', 'PostController@store');
+
+

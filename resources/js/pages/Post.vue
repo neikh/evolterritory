@@ -80,6 +80,8 @@
     import { Datetime } from 'vue-datetime';
     import { Settings } from 'luxon';
     Settings.defaultLocale = 'en';
+    import { images } from '../imports/images';
+
     export default {
         components: {
             vueLoader,
@@ -91,7 +93,8 @@
                 before: '',
                 after: '',
                 date1: '2015-02-22T00:00:00.000Z',
-                date2: '2017-02-22T00:00:00.000Z'
+                date2: '2017-02-22T00:00:00.000Z',
+                images
             }
         },
 
@@ -155,8 +158,8 @@
                 console.log(img1.date)
                 document.getElementById('date1').textContent = img1.date;
                 document.getElementById('date2').textContent = img2.date;
-                let upload1 = this.storePic(this.before);
-                let upload2 = this.storePic(this.after);
+                let upload1 = this.images.storePic(this.before);
+                let upload2 = this.images.storePic(this.after);
 
                 await upload1;
                 await upload2;
@@ -189,15 +192,7 @@
 
             },
 
-            async storePic(picture){
 
-                let question = await axios.post('/temp' , {
-                    params: {
-                        file: picture
-                    }
-                })
-                return true;
-            },
 
             switchImages(){
                 let img = this.before;
@@ -330,7 +325,7 @@
                         title: 'You have to be logged to save a comparison.',
                     })
                 } else {
-                    
+
                     if (this.before != '' && this.after != ''){
 
                         try {
@@ -347,7 +342,7 @@
                                 ]).then( async (result) => {
                                 if (result.value) {
                                     document.getElementById('save').classList.remove("d-none");
-                                    
+
                                     let question = await axios.post('/save' , {
                                         params: {
                                             file1: this.before,
@@ -358,7 +353,7 @@
                                     })
 
                                     document.getElementById('save').classList.add("d-none");
-                                    
+
                                     this.$swal.fire({
                                         position: 'top-end',
                                         type: 'success',
