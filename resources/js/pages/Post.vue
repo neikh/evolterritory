@@ -301,8 +301,8 @@
                                             file2: this.after,
                                             titre: result.value[0],
                                             description: result.value[1],
-                                            date1: this.date1,
-                                            date2: this.date2
+                                            date1: this.GGET().date1,
+                                            date2: this.GGET().date2
                                         }
                                     })
 
