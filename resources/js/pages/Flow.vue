@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <!-- <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8 row">
                 <nav class="navbar navbar-light bg-light">
@@ -22,10 +22,17 @@
                 </div>
             </div>
         </div>
+    </div> -->
+    <div>
+        <b-tabs content-class="mt-3" justified>
+            <b-tab title="First" active><p>I'm the first tab</p></b-tab>
+            <b-tab title="Second"><p>I'm the second tab</p></b-tab>
+        </b-tabs>
     </div>
 </template>
 
 <script>
+
     export default {
         mounted() {
             console.log('Component mounted.')
