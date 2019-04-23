@@ -44,7 +44,6 @@ class PostController extends Controller
         // \Image::make($request['params']['file1'])->resize(512, 512)->save(base_path('storage\app\public\images\\'.$random.'.jpg'));
         $random2 = \Str::random(40);
         //Linux
-
         \Image::make($request['params']['file2'])->resize(512, 512)->save(base_path('storage/app/public/images/'.$random2.'.jpg'));
         //Windows
         // \Image::make($request['params']['file2'])->resize(512, 512)->save(base_path('storage\app\public\images\\'.$random2.'.jpg'));
