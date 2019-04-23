@@ -18,13 +18,14 @@ class Posts extends Migration
 			$table->integer('id_author');
 			$table->string('id_pic_1');
 			$table->string('id_pic_2');
+            $table->string('date1');
+            $table->string('date2');
 			$table->string('titre');
 			$table->string('description',3000);
 			$table->integer('nb_vote');
 			$table->timestamps();
 		});
     }
-
     /**
      * Reverse the migrations.
      *

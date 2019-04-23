@@ -54,6 +54,8 @@ class PostController extends Controller
         //Linux
         $post->id_pic_1 = 'images/'.$random.'.jpg';
         $post->id_pic_2 = 'images/'.$random2.'.jpg';
+        $post->date1 = $request['params']['date1'];
+        $post->date2 = $request['params']['date2'];
         //Windows
         // $post->id_pic_1 = 'images\\'.$random.'.jpg';
         // $post->id_pic_2 = 'images\\'.$random2.'.jpg';
