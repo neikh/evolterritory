@@ -38,15 +38,9 @@ class PostController extends Controller
     {
 
         $random = \Str::random(40);
-        //Linux
         \Image::make($request['params']['file1'])->resize(512, 512)->save(base_path('storage/app/public/images/'.$random.'.jpg'));
-        //Windows
-        // \Image::make($request['params']['file1'])->resize(512, 512)->save(base_path('storage\app\public\images\\'.$random.'.jpg'));
         $random2 = \Str::random(40);
-        //Linux
         \Image::make($request['params']['file2'])->resize(512, 512)->save(base_path('storage/app/public/images/'.$random2.'.jpg'));
-        //Windows
-        // \Image::make($request['params']['file2'])->resize(512, 512)->save(base_path('storage\app\public\images\\'.$random2.'.jpg'));
 
         $post = new \App\Post;
         $post->id_author = Auth::id();
