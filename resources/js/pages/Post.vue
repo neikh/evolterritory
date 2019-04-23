@@ -1,10 +1,7 @@
 <template>
     <div class="container-fluid">
-        <div id="loading" class="fixed-top d-none">
-            <vue-loader direction="top-right" image="https://loading.io/spinners/coolors/lg.palette-rotating-ring-loader.gif" text="Loading..." text-color="#786fa6" :background="'#ea8685'" />
-        </div>
-        <div id="save" class="fixed-top d-none">
-            <vue-loader direction="top-right" image="https://loading.io/spinners/coolors/lg.palette-rotating-ring-loader.gif" text="Saving..." text-color="#786fa6" :background="'#ea8685'" />
+        <div id="loading" class="fixed-top" v-if="isLoading">
+            <vue-loader direction="top-right" image="https://loading.io/spinners/coolors/lg.palette-rotating-ring-loader.gif" v-bind:text="loadType" text-color="#786fa6" :background="'#ea8685'" />
         </div>
 
         <div class="row">
@@ -80,7 +77,7 @@
     import { Datetime } from 'vue-datetime';
     import { Settings } from 'luxon';
     Settings.defaultLocale = 'en';
-    import { images } from '../imports/images';
+    import { helper } from '../imports/helper';
 
     export default {
         components: {
@@ -94,7 +91,9 @@
                 after: '',
                 date1: '2015-02-22T00:00:00.000Z',
                 date2: '2017-02-22T00:00:00.000Z',
-                images
+                isLoading: true,
+                helper,
+                loadType: ''
             }
         },
 
@@ -114,7 +113,8 @@
                     })
                 } else {
 
-                    document.getElementById('loading').classList.remove("d-none");
+                    this.isLoading = true;
+                    this.loadType = "Loading...";
 
                     if (latitude == "" || longitude == ""){
                         latitude = document.getElementById('inputLatitude').value;
@@ -136,8 +136,8 @@
                     }
 
 
-                    let date1 = await this.dateRefactor(document.getElementById('inputDate1').value);
-                    let date2 = await this.dateRefactor(document.getElementById('inputDate2').value);
+                    let date1 = await this.helper.dateRefactor(document.getElementById('inputDate1').value);
+                    let date2 = await this.helper.dateRefactor(document.getElementById('inputDate2').value);
 
                     this.imgCharge(latitude, longitude, date2, date1)
                 }
@@ -145,11 +145,10 @@
 
             async imgCharge(latitude, longitude, date2, date1) {
 
-                document.getElementById('loading').classList.remove("d-none");
+                this.isLoading = true;
+                this.loadType = "Loading...";
 
                 document.location.hash = 'lat='+latitude+'&lon='+longitude+'&date1='+date1+'&date2='+date2
-
-
 
                 let img1 = await this.getImage(latitude, longitude, date1);
                 let img2 = await this.getImage(latitude, longitude, date2);
@@ -158,12 +157,12 @@
                 console.log(img1.date)
                 document.getElementById('date1').textContent = img1.date;
                 document.getElementById('date2').textContent = img2.date;
-                let upload1 = this.images.storePic(this.before);
-                let upload2 = this.images.storePic(this.after);
+                let upload1 = this.helper.storePic(this.before);
+                let upload2 = this.helper.storePic(this.after);
 
                 await upload1;
                 await upload2;
-                document.getElementById('loading').classList.add("d-none");
+                this.isLoading = false;
             },
 
             async getImage(latitude, longitude, date){
@@ -187,12 +186,10 @@
                         type: 'error',
                         title: 'Something went wrong with the NASA API. The location may not exist.',
                     })
-                    document.getElementById('loading').classList.add("d-none");
+                    this.isLoading = false;
                 }
 
             },
-
-
 
             switchImages(){
                 let img = this.before;
@@ -237,30 +234,9 @@
                         type: 'error',
                         title: 'Something went wrong with the OpenStreetMap API. The location may not exist.',
                     })
-                    document.getElementById('loading').classList.add("d-none");
+                    this.isLoading = false;
                 }
 
-            },
-
-            dateRefactor(date){
-                let months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-
-                let organize = date.split(' ');
-                let day = organize[1];
-                let month = organize[0];
-                let year = organize[2];
-
-                day = day.slice(0, -1);
-                day = (day < 10 ? '0'+day : day);
-
-                for (let i = 0; i < months.length; i++){
-                    if (month === months[i]){
-                        month = i + 1;
-                        month = (month < 10 ? '0'+month : month);
-                    }
-                }
-
-                return year+"-"+month+"-"+day;
             },
 
             //checks if more than one address has been retrieved by geocoding, and asks the user to choose one if so
@@ -340,8 +316,9 @@
                                 },
                                 'Give a description for the comparison'
                                 ]).then( async (result) => {
-                                if (result.value) {
-                                    document.getElementById('save').classList.remove("d-none");
+                                if (result.value[0] != "" && result.value[1] != "") {
+                                    this.isLoading = true;
+                                    this.loadType = "Saving...";
 
                                     let question = await axios.post('/save' , {
                                         params: {
@@ -352,7 +329,7 @@
                                         }
                                     })
 
-                                    document.getElementById('save').classList.add("d-none");
+                                    this.isLoading = false;
 
                                     this.$swal.fire({
                                         position: 'top-end',
@@ -361,13 +338,18 @@
                                         showConfirmButton: false,
                                         timer: 2500
                                     })
+                                } else {
+                                     this.$swal.fire({
+                                        type: 'error',
+                                        title: 'You have to put a title and a description.',
+                                    })
                                 }
                             })
 
                             return true;
 
                         } catch(e){
-                            document.getElementById('save').classList.add("d-none");
+                            this.isLoading = false;
                             this.$swal.fire({
                                 position: 'top-end',
                                 type: 'error',
