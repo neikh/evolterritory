@@ -58,7 +58,7 @@
                 <!-- affiche un choix si plusieurs résultats ont été trouvés -->
                 <div id="select" class="row justify-content-center pl-4 pr-4 mb-3" v-if="addressList[1]">
                     <p>Several results have been found, select one to display :</p>
-                    <select v-on:change="changeSelected($event)">
+                    <select v-on:change="changeSelected($event)" class="form-control">
                         <option v-for="address in addressList" :latitude="address.lat" :longitude="address.lon">{{ address.display_name }} ({{address.type}})</option>
                     </select>
                 </div>
