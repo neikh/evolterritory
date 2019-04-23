@@ -1,7 +1,7 @@
 <template>
     <div class="container-fluid">
         <div id="loading" class="fixed-top" v-show="isLoading">
-            <vue-loader direction="top-right" image="https://loading.io/spinners/coolors/lg.palette-rotating-ring-loader.gif" v-bind:text="loadType" text-color="#786fa6" :background="'#ea8685'" />
+            <vue-loader direction="top-right" image="https://loading.io/spinners/cloudy/index.cloudy-sky-preloader.svg" v-bind:text="loadType" text-color="#786fa6" :background="'#ea8685'" />
         </div>
 
         <div class="row">
