@@ -152,8 +152,8 @@
 
                 let img1 = await this.getImage(latitude, longitude, date1);
                 let img2 = await this.getImage(latitude, longitude, date2);
-                this.before = img1.url;
-                this.after = img2.url;
+                this.before = img2.url;
+                this.after = img1.url;
                 console.log(img1.date)
                 document.getElementById('date1').textContent = img1.date;
                 document.getElementById('date2').textContent = img2.date;
