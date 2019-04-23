@@ -157,6 +157,8 @@
                 console.log(img1.date)
                 document.getElementById('date1').textContent = img1.date;
                 document.getElementById('date2').textContent = img2.date;
+                this.date1 = img1.date;
+                this.date2 = img2.date;
                 let upload1 = this.helper.storePic(this.before);
                 let upload2 = this.helper.storePic(this.after);
 
@@ -325,7 +327,9 @@
                                             file1: this.before,
                                             file2: this.after,
                                             titre: result.value[0],
-                                            description: result.value[1]
+                                            description: result.value[1],
+                                            date1: this.date1,
+                                            date2: this.date2
                                         }
                                     })
 

@@ -16,15 +16,16 @@ class Posts extends Migration
 		Schema::create('posts', function (Blueprint $table) {
 			$table->bigIncrements('id');
 			$table->integer('id_author');
-			$table->integer('id_pic_1');
-			$table->integer('id_pic_2');
+			$table->string('id_pic_1');
+			$table->string('id_pic_2');
+            $table->string('date1');
+            $table->string('date2');
 			$table->string('titre');
-			$table->string('description');
+			$table->string('description',3000);
 			$table->integer('nb_vote');
 			$table->timestamps();
 		});
     }
-
     /**
      * Reverse the migrations.
      *
