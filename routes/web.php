@@ -20,7 +20,7 @@ Route::get('/grab', 'HomeController@getPic');
 Route::post('/temp', 'ImageController@store');
 
 Route::get('/flow', 'FlowController@index');
-Route::get('/flow/new', 'FlowController@get');
+Route::get('/flow/new/p={page}', 'FlowController@get');
 
 Route::get('/post', 'PostController@index');
 Route::post('/save', 'PostController@store');
