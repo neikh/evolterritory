@@ -1,6 +1,6 @@
 <template>
     <div class="ml-3">
-        <div class="card text-center">
+        <div id="my-card" class="card text-center">
             <div>
                 <div id="date1" class="d-inline font-weight-bold text-left pr-5"> {{ this.date1[0] }}</div>
                 <div id="date2" class="d-inline font-weight-bold text-right"> {{ this.date2[0] }} </div>
@@ -66,6 +66,7 @@
   }
 </script>
 <style>
+<<<<<<< HEAD
     .fa-sun{
         font-size: 20px;
     }
@@ -73,3 +74,10 @@
         color: orange;
     }
 </style>
+=======
+#my-card{
+    height: 500px;
+}
+</style>
+
+>>>>>>> 307c3820efe1dde132f3fa6f91319cb7449da076
