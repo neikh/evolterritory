@@ -37,8 +37,7 @@
                response: '',
                isNewActive: true,
                isHotActive: false,
-               itemsLoaded: 'new',
-               countObject: 0,
+               isLoading: false,
                stillMoreItems: true
             }
         },
@@ -53,6 +52,7 @@
             async loadItems(type){
                 if ((type !== 'new' && this.isNewActive === true) || (type !== 'hot' && this.isHotActive === true)){
                     this.items = [];
+                    this.stillMoreItems = true;
                 }
 
                 let response = await axios.get('flow/'+type+'/p='+this.items.length);
@@ -61,25 +61,27 @@
                 if ((type === 'new' && this.isNewActive === true) || (type === 'hot' && this.isHotActive === true)){
                     this.items = this.items.concat(response.data);
                 } else {
-                    this.items = this.response.data;
+                    this.items = response.data;
                     this.isNewActive = !this.isNewActive;
                     this.isHotActive = !this.isHotActive;
                 }
 
-                if (this.response.data.length === 0){
+                if (response.data.length === 0){
                     this.stillMoreItems = false;
+                } else {
+                    this.isLoading = false;
                 }
 
             }
         },
 
         created(){
-        let isLoading = false;
+
         window.onscroll = (ev) => {
 
-            if (!isLoading && this.stillMoreItems){
+            if (!this.isLoading && this.stillMoreItems){
                 if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight -200) {
-                    isLoading = true;
+                    this.isLoading = true;
                     if (this.isHotActive === true){
                         this.loadItems('hot');
                     } else {

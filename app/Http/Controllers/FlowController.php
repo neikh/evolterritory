@@ -42,6 +42,7 @@ class FlowController extends Controller
         //récupérer les 10 derniers post par nombre de vote
         $hotPosts = \App\Post::orderBy('nb_vote', 'desc')
                ->take(10)
+               ->offset($page)
                ->get();
 
         return $hotPosts;
