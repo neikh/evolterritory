@@ -2,12 +2,13 @@
     <div>
         <b-tabs content-class="mt-3" justified>
             <b-tab title="New" active>
-                <div class="d-flex">
-                    <div class='item' v-for="item in items">
-                        <flowItem :item="item" ></flowItem>
+                 <div class="container-fluid">
+                    <div class="row">
+                        <div class='item' v-for="item in items">
+                            <flowItem :item="item" ></flowItem>
+                        </div>
                     </div>
                 </div>
-
             </b-tab>
             <b-tab title="Hot"><p>I'm the second tab</p></b-tab>
         </b-tabs>
