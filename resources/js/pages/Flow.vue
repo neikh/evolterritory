@@ -1,7 +1,7 @@
 <template>
     <div>
-        <b-tabs content-class="mt-3" justified fill>
-            <b-tab title="New" v-bind:class="{'active': isNewActive }" v-on:click="loadItems('new')">
+        <b-tabs content-class="mt-3" justified>
+            <b-tab title="Newest Comparison" v-bind:class="{'active': isNewActive }" v-on:click="loadItems('new')">
                  <div class="container-fluid">
                     <div class="row flex-center">
                         <div class='item' v-for="item in items">
@@ -10,7 +10,7 @@
                     </div>
                 </div>
             </b-tab>
-            <b-tab title="Hot" v-bind:class="{'active': isHotActive }" v-on:click="loadItems('hot')">
+            <b-tab title="Most popular comparison" v-bind:class="{'active': isHotActive }" v-on:click="loadItems('hot')">
                 <div class="container-fluid">
                     <div class="row flex-center">
                         <div class='item' v-for="item in items">
@@ -102,5 +102,20 @@
 .flex-center{
     align-items: center;
     justify-content: center;
+}
+.nav-tabs .nav-link.active {
+    border-top: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    color: #000000;
+    background-color: transparent;
+    font-weight: bold;
+}
+.nav-tabs .nav-link {
+    border-bottom: 1px solid black;
+}
+.nav-tabs .nav-link:hover{
+    border-bottom: 1px solid black;
+    background-color: #dde5ec;
 }
 </style>
