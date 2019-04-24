@@ -3,7 +3,7 @@
         <b-tabs content-class="mt-3" justified>
             <b-tab title="New" active>
                  <div class="container-fluid">
-                    <div class="row">
+                    <div class="row flex-center">
                         <div class='item' v-for="item in items">
                             <flowItem :item="item" ></flowItem>
                         </div>
@@ -72,5 +72,9 @@
 .item{
     width: 300px;
     margin-top: 10px;
+}
+.flex-center{
+    align-items: center;
+    justify-content: center;
 }
 </style>
