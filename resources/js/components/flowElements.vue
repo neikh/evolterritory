@@ -35,8 +35,8 @@
     props: ['item'],
      data () {
         return {
-            before: 'storage/'+this.item.id_pic_2,
-            after: 'storage/'+this.item.id_pic_1,
+            before: 'storage/'+this.item.id_pic_1,
+            after: 'storage/'+this.item.id_pic_2,
             date1:'',
             date2:'',
             voteSun:0,
