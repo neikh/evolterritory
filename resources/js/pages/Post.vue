@@ -10,24 +10,24 @@
                     <div class=" Adresse">
                         <div class="form-group col-md-12">
                             <label for="inputAdresse">Adresse</label>
-                            <input class="form-control" id="inputAdresse" placeholder="Adresse">
+                            <input class="form-control" id="inputAdresse" placeholder="Adresse" v-model="street" v-on:keyup="clearCoordinates()">
                         </div>
                         <div class="form-group col-md-12">
                             <label for="inputVille">Ville</label>
-                            <input class="form-control" id="inputVille" placeholder="Ville" value="grenoble">
+                            <input class="form-control" id="inputVille" placeholder="Ville" value="grenoble" v-model="city" v-on:keyup="clearCoordinates()">
                         </div>
                         <div class="form-group col-md-12">
                             <label for="inputCodePostal">Code postal</label>
-                            <input class="form-control" id="inputCodePostal" placeholder="Code postal">
+                            <input class="form-control" id="inputCodePostal" placeholder="Code postal" v-model="postalCode" v-on:keyup="clearCoordinates()">
                         </div>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="inputlatitude">Latitude</label>
-                        <input type="latitude" class="form-control" id="inputLatitude">
+                        <input type="latitude" class="form-control" id="inputLatitude" v-model="latitude">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="inputLongitude">Longitude</label>
-                        <input type="longitude" class="form-control" id="inputLongitude">
+                        <input type="longitude" class="form-control" id="inputLongitude" v-model="longitude">
                     </div>
 
                     <div class="row mx-auto">
@@ -98,20 +98,30 @@
                 isLoading: false,
                 helper,
                 loadType: '',
-                addressList: []
+                street: '',
+                city: '',
+                postalCode: '',
+                addressList: [],
+                latitude: '',
+                longitude: '',
             }
         },
 
         mounted() {
             if(document.location.hash){
-                this.imgCharge(this.GGET().lat, this.GGET().lon, this.GGET().date2, this.GGET().date1)
+                this.latitude = this.GGET().lat;
+                this.longitude = this.GGET().lon;
+                this.date2 = this.GGET().date2;
+                this.date1 = this.GGET().date1;
+
+                this.imgCharge();
             }
         },
 
         methods:{
-            async sub(latitude = "", longitude = "", valid = false){
+            async sub(){
 
-                if(!this.isFormValid('search') && valid == false){
+                if(!this.isFormValid('search')){
                     this.$swal.fire({
                         type: 'error',
                         title: 'The form is not filled correctly.',
@@ -121,45 +131,31 @@
                     this.isLoading = true;
                     this.loadType = "Loading...";
 
-                    if (latitude == "" || longitude == ""){
+                    // if either the latitude or longitude is empty, search for the address
+                    if (this.latitude == "" || this.longitude == ""){
                         this.addressList = [];
                         this.addressList.sort();
-
-                        latitude = document.getElementById('inputLatitude').value;
-                        longitude = document.getElementById('inputLongitude').value;
+                        
+                        await this.geocoding();
                     }
 
-                    // if no latitude or longitude has been given, use those from the address
-                    if (latitude == "" || longitude == ""){
-                        let street = document.getElementById('inputAdresse').value;
-                        let city = document.getElementById('inputVille').value;
-                        let postalCode = document.getElementById('inputCodePostal').value;
-
-                        let coordinates = await this.geocoding(street, city, postalCode);
-
-                        console.log(coordinates);
-
-                        latitude = coordinates[0];
-                        longitude = coordinates[1];
-                    }
-
-
-                    let date1 = await this.helper.dateRefactor(document.getElementById('inputDate1').value);
-                    let date2 = await this.helper.dateRefactor(document.getElementById('inputDate2').value);
-
-                    this.imgCharge(latitude, longitude, date2, date1)
+                    this.imgCharge();
                 }
             },
 
-            async imgCharge(latitude, longitude, date2, date1) {
+            async imgCharge() {
+                console.log(this.date1, this.date2, this.longitude, this.latitude);
 
                 this.isLoading = true;
                 this.loadType = "Loading...";
 
-                document.location.hash = 'lat='+latitude+'&lon='+longitude+'&date1='+date1+'&date2='+date2;
+                let date1 = await this.helper.dateRefactor(this.date1);
+                let date2 = await this.helper.dateRefactor(this.date2);
 
-                let img1 = await this.getImage(latitude, longitude, date1);
-                let img2 = await this.getImage(latitude, longitude, date2);
+                document.location.hash = 'lat='+this.latitude+'&lon='+this.longitude+'&date1='+date1+'&date2='+date2;
+
+                let img1 = await this.getImage(date1);
+                let img2 = await this.getImage(date2);
                 this.before = img2.url;
                 this.after = img1.url;
                 this.date1 = img1.date;
@@ -172,13 +168,13 @@
                 this.isLoading = false;
             },
 
-            async getImage(latitude, longitude, date){
+            async getImage(date){
 
                 try{
                     let response = await axios.get('https://api.nasa.gov/planetary/earth/imagery/' , {
                         params: {
-                            lon: longitude,
-                            lat: latitude,
+                            lat: this.latitude,
+                            lon: this.longitude,
                             date: date,
                             dim: 0.1,
                             cloud_score: 'True',
@@ -223,10 +219,10 @@
             	return vars;
             },
 
-            async geocoding(street = "", city = "", postalCode = ""){ // turns an address into coordinates
+            async geocoding(){ // turns an address into coordinates
 
                 try {
-                    let query = street+", "+city+", "+postalCode;
+                    let query = this.street+", "+this.city+", "+this.postalCode;
                     let response = await axios.get('https://nominatim.openstreetmap.org/search' , {
                         params: {
                             format: "json",
@@ -237,10 +233,9 @@
                     // put the address list sent by nominatim in addressList so that vuejs can display it
                     this.addressList = response.data;
 
-                    // returns the coordinates of the first address in the list
-                    let coordinates = [this.addressList[0].lat, this.addressList[0].lon];
-
-                    return coordinates;
+                    // set latitude and longitude to that of the first address in the list
+                    this.latitude = this.addressList[0].lat;
+                    this.longitude = this.addressList[0].lon;
                 } catch(e){
                     this.$swal.fire({
                         type: 'error',
@@ -253,12 +248,10 @@
 
             changeSelected(event){
 
-                let latitude = event.srcElement.selectedOptions[0].attributes.latitude.value;
-                let longitude = event.srcElement.selectedOptions[0].attributes.longitude.value;
+                this.latitude = event.srcElement.selectedOptions[0].attributes.latitude.value;
+                this.longitude = event.srcElement.selectedOptions[0].attributes.longitude.value;
 
-                if (latitude && longitude){
-                    this.sub(latitude, longitude, true);
-                }
+                this.sub();
             },
 
             async saveThisVue(){
@@ -281,15 +274,15 @@
 
                         try {
                             let form =  await this.$swal.mixin({
-                                input: 'text',
-                                confirmButtonText: 'Next &rarr;',
-                                showCancelButton: true,
-                                progressSteps: ['1', '2']
+                                    input: 'text',
+                                    confirmButtonText: 'Next &rarr;',
+                                    showCancelButton: true,
+                                    progressSteps: ['1', '2']
                                 }).queue([
-                                {
-                                    title: 'Give a title for the comparison',
-                                },
-                                'Give a description for the comparison'
+                                    {
+                                        title: 'Give a title for the comparison',
+                                    },
+                                    'Give a description for the comparison'
                                 ]).then( async (result) => {
                                 if (result.value[0] != "" && result.value[1] != "") {
                                     this.isLoading = true;
@@ -341,20 +334,13 @@
             },
 
             isFormValid(mode){
-                let latitude = document.getElementById('inputLatitude').value;
-                let longitude = document.getElementById('inputLongitude').value;
-                let street = document.getElementById('inputAdresse').value;
-                let city = document.getElementById('inputVille').value;
-                let postalCode = document.getElementById('inputCodePostal').value;
-                let date1 = document.getElementById('inputDate1').value;
-                let date2 = document.getElementById('inputDate2').value;
 
                 if (mode === "search"){
-                    if ((latitude != '' && latitude >= -90 && latitude <= 90 && longitude != '' && longitude >= -180 && latitude <= 180) && (date1 != '' && date2 != '')){
+                    if ((this.latitude != '' && this.latitude >= -90 && this.latitude <= 90 && this.longitude != '' && this.longitude >= -180 && this.latitude <= 180) && (this.date1 != '' && this.date2 != '')){
                         return true;
                     }
 
-                    if ((street != '' || city != '' || postalCode != '') && (date1 != '' && date2 != '')){
+                    if ((this.street != '' || this.city != '' || this.postalCode != '') && (this.date1 != '' && this.date2 != '')){
                         return true;
                     }
                 }
@@ -366,6 +352,11 @@
                 }
 
                 return false;
+            },
+
+            clearCoordinates(){
+                this.latitude = '';
+                this.longitude = '';
             }
         }
     }

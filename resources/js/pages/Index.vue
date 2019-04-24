@@ -1,9 +1,9 @@
 <template>
     <div class="container">
-        <div id="loading" class="fixed-top d-none">
+        <div id="loading" class="fixed-top" v-show="isLoading">
             <vue-loader direction="top-right" image="https://loading.io/spinners/coolors/lg.palette-rotating-ring-loader.gif" text="Loading..." text-color="#786fa6" :background="'#ea8685'" />
         </div>
-        <h1 id="title"></h1>
+        <h1>Today, let's discover the city of {{city}}</h1>
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div id="date1" class="d-inline font-weight-bold">2014-08-01</div>
@@ -28,7 +28,9 @@
        data () {
             return {
                 before: '',
-                after: ''
+                after: '',
+                city: '',
+                isLoading: false
             }
         },
         methods:{
@@ -77,13 +79,11 @@
         },
 
         async mounted() {
-            document.getElementById('loading').classList.remove("d-none");
+            this.isLoading = true;
 
-            let city = await this.randomName();
+            this.city = await this.randomName();
 
-            document.getElementById('title').textContent = 'Today, let\'s discover the city of '+city;
-
-            let coordinates = await this.geocoding(city);
+            let coordinates = await this.geocoding(this.city);
 
             let img1 = this.getImage(coordinates[0], coordinates[1], '2014-08-01');
             let img2 = this.getImage(coordinates[0], coordinates[1], '2016-08-01');
@@ -97,7 +97,7 @@
             await upload1;
             await upload2;
 
-            document.getElementById('loading').classList.add("d-none");
+            this.isLoading = false;
         }
     }
 </script>
