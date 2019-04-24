@@ -16,10 +16,11 @@
             <div class="card-footer text-muted">
                 <div class="row">
                     <div class="col">
-
+                        {{voteSun}}
                         <button type="radio" name="button" v-bind:class="{ vote: sunActive }" class="btn btn-outline-secondary" v-on:click="voteClick('sun')"><i class="far fa-sun"></i></button>
 
                         <button type="radio" name="button" v-bind:class="{ vote: cloudActive }" class="btn btn-outline-secondary" v-on:click="voteClick('cloud')"><i class="fas fa-cloud"></i></button>
+                        {{voteCloud}}
                     </div>
                     <!-- <div class="col">
                     <a href="tel:+123456789"><i class="fas fa-phone"></i></a>
@@ -38,6 +39,8 @@
             after: 'storage/'+this.item.id_pic_1,
             date1:'',
             date2:'',
+            voteSun:0,
+            voteCloud:0,
             sunActive: false,
             cloudActive: false
         }
@@ -50,34 +53,28 @@
     },
     methods: {
         voteClick(vote){
-            console.log(vote)
             if(vote == 'sun'){
-                if(this.cloudActive){this.cloudActive = !this.cloudActive}
-                this.sunActive = !this.sunActive
-                console.log('le soleeeeeeeeeeeeeeeeeeeil');
+                if(this.cloudActive){
+                    this.cloudActive = !this.cloudActive;
+                }
+                this.sunActive = !this.sunActive;
             }
             if(vote == 'cloud'){
                 if(this.sunActive){this.sunActive = !this.sunActive}
                 this.cloudActive = !this.cloudActive
-                console.log('le pas soleeeeeeeeeeeeeeeeeeeil');
             }
         }
     }
   }
 </script>
 <style>
-<<<<<<< HEAD
     .fa-sun{
         font-size: 20px;
     }
     .vote{
         color: orange;
     }
+    #my-card{
+        height: 500px;
+    }
 </style>
-=======
-#my-card{
-    height: 500px;
-}
-</style>
-
->>>>>>> 307c3820efe1dde132f3fa6f91319cb7449da076
