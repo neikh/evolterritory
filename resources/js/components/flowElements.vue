@@ -49,7 +49,6 @@
         // date1 = this.item.date1
         this.date2 = this.item.date2.split('T')
         this.date1 = this.item.date1.split('T')
-        console.log(date1[0]);
     },
     methods: {
         voteClick(vote){

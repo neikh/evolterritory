@@ -29,7 +29,7 @@ class FlowController extends Controller
     public function getNew($page = 0)
     {
         //récupérer les 10 derniers post par date
-        $newPosts = \App\Post::orderBy('created_at', 'desc')
+        $newPosts = \App\Post::orderBy('id', 'desc')
                ->take(10)
                ->offset($page)
                ->get();

@@ -50,26 +50,26 @@
         },
 
         methods: {
-            loadItems(type){
+            async loadItems(type){
                 if ((type !== 'new' && this.isNewActive === true) || (type !== 'hot' && this.isHotActive === true)){
                     this.items = [];
                 }
 
-                axios.get('flow/'+type+'/p='+this.items.length)
-                .then(response => {
-                    console.log(response.data);
-                    if ((this.itemsLoaded === 'new' && this.isNewActive === true) || (this.itemsLoaded === 'hot' && this.isHotActive === true)){
-                        this.items = this.items.concat(response.data);
-                    } else {
-                        this.items = this.response.data;
-                        this.isNewActive = !this.isNewActive;
-                        this.isHotActive = !this.isHotActive;
-                    }
+                let response = await axios.get('flow/'+type+'/p='+this.items.length);
 
-                    if (this.response.data.length === 0){
-                        this.stillMoreItems = false;
-                    }
-                })
+                console.log(response.data);
+                if ((type === 'new' && this.isNewActive === true) || (type === 'hot' && this.isHotActive === true)){
+                    this.items = this.items.concat(response.data);
+                } else {
+                    this.items = this.response.data;
+                    this.isNewActive = !this.isNewActive;
+                    this.isHotActive = !this.isHotActive;
+                }
+
+                if (this.response.data.length === 0){
+                    this.stillMoreItems = false;
+                }
+
             }
         },
 
