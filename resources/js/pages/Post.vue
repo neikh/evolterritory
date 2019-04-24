@@ -10,15 +10,15 @@
                     <div class=" Adresse">
                         <div class="form-group col-md-12">
                             <label for="inputAdresse">Adresse</label>
-                            <input class="form-control" id="inputAdresse" placeholder="Adresse" v-model="street" v-on:keyup="clearCoordinates()">
+                            <input class="form-control" id="inputAdresse" placeholder="Adresse" v-model="street" v-on:input="clearCoordinates()">
                         </div>
                         <div class="form-group col-md-12">
                             <label for="inputVille">Ville</label>
-                            <input class="form-control" id="inputVille" placeholder="Ville" value="grenoble" v-model="city" v-on:keyup="clearCoordinates()">
+                            <input class="form-control" id="inputVille" placeholder="Ville" value="grenoble" v-model="city" v-on:input="clearCoordinates()">
                         </div>
                         <div class="form-group col-md-12">
                             <label for="inputCodePostal">Code postal</label>
-                            <input class="form-control" id="inputCodePostal" placeholder="Code postal" v-model="postalCode" v-on:keyup="clearCoordinates()">
+                            <input class="form-control" id="inputCodePostal" placeholder="Code postal" v-model="postalCode" v-on:input="clearCoordinates()">
                         </div>
                     </div>
                     <div class="form-group col-md-6">
@@ -64,7 +64,7 @@
                 </div>
             </nav>
 
-            <div class="col-md-8 col-lg-8 px-4">
+            <div class="col-md-8 col-lg-8 px-4" v-if="before">
                 <div class="d-inline font-weight-bold">{{date1}}</div>
                 <div class="d-inline font-weight-bold float-right">{{date2}}</div>
                 <image-compare class="img-fluid" :before="before" :after="after" :padding="{ left: 1, right: 1 }">
