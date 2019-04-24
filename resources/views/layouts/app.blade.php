@@ -6,7 +6,7 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    
+
     <!-- Authentified or not -->
     <meta name="login-status" content="{{ Auth::check() }}">
 
@@ -85,6 +85,8 @@
         <main class="py-4">
             @yield('content')
         </main>
+
     </div>
+    <footer>bonjour voici le footer(en php donc dans resources/views/layouts/app.blade.php)</footer>
 </body>
 </html>

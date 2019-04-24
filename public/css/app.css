@@ -10662,3 +10662,20 @@ a.text-dark:focus {
   }
 }
 
+nav {
+  box-shadow: 1px 1px 12px #555;
+  font-size: 1.125rem;
+}
+
+footer {
+  box-shadow: 0px -6px 12px -3px #555;
+  z-index: 9000;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  background-color: #efefef;
+  text-align: center;
+}
+
