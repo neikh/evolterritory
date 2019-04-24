@@ -10,7 +10,15 @@
                     </div>
                 </div>
             </b-tab>
-            <b-tab title="Hot"><p>I'm the second tab</p></b-tab>
+            <b-tab title="Hot">
+                <div class="container-fluid">
+                   <div class="row">
+                       <div class='item' v-for="item in items">
+                           <flowItem :item="item" ></flowItem>
+                       </div>
+                   </div>
+               </div>
+            </b-tab>
         </b-tabs>
 
     </div>

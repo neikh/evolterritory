@@ -16,14 +16,14 @@
             <div class="card-footer text-muted">
                 <div class="row">
                     <div class="col">
-                    <a href=""><i class="fas fa-map"></i></a>
+
+                        <button type="radio" name="button" v-bind:class="{ vote: sunActive }" class="btn btn-outline-secondary" v-on:click="voteClick('sun')"><i class="far fa-sun"></i></button>
+
+                        <button type="radio" name="button" v-bind:class="{ vote: cloudActive }" class="btn btn-outline-secondary" v-on:click="voteClick('cloud')"><i class="fas fa-cloud"></i></button>
                     </div>
-                    <div class="col">
-                    <a href="mailto:test@test.com"><i class="fas fa-envelope"></i></a>
-                    </div>
-                    <div class="col">
+                    <!-- <div class="col">
                     <a href="tel:+123456789"><i class="fas fa-phone"></i></a>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -37,7 +37,9 @@
             before: 'storage/'+this.item.id_pic_2,
             after: 'storage/'+this.item.id_pic_1,
             date1:'',
-            date2:''
+            date2:'',
+            sunActive: false,
+            cloudActive: false
         }
     },
     mounted(){
@@ -45,7 +47,29 @@
         this.date2 = this.item.date2.split('T')
         this.date1 = this.item.date1.split('T')
         console.log(date1[0]);
+    },
+    methods: {
+        voteClick(vote){
+            console.log(vote)
+            if(vote == 'sun'){
+                if(this.cloudActive){this.cloudActive = !this.cloudActive}
+                this.sunActive = !this.sunActive
+                console.log('le soleeeeeeeeeeeeeeeeeeeil');
+            }
+            if(vote == 'cloud'){
+                if(this.sunActive){this.sunActive = !this.sunActive}
+                this.cloudActive = !this.cloudActive
+                console.log('le pas soleeeeeeeeeeeeeeeeeeeil');
+            }
+        }
     }
   }
 </script>
-
+<style>
+    .fa-sun{
+        font-size: 20px;
+    }
+    .vote{
+        color: orange;
+    }
+</style>
