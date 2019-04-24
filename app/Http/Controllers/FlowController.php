@@ -26,19 +26,25 @@ class FlowController extends Controller
         return view('flow');
     }
 
-    public function get($page = 0)
+    public function getNew($page = 0)
     {
-        //récupérer les 10 derniers post par nombre de vote
-        $hotPosts = \App\Post::orderBy('nb_vote', 'desc')
-               ->take(10)
-               ->get();
-
         //récupérer les 10 derniers post par date
-        $newPosts = \App\Post::orderBy('created_at', 'desc')
+        $newPosts = \App\Post::orderBy('id', 'desc')
                ->take(10)
                ->offset($page)
                ->get();
 
         return $newPosts;
+    }
+
+    public function getHot($page = 0)
+    {
+        //récupérer les 10 derniers post par nombre de vote
+        $hotPosts = \App\Post::orderBy('nb_vote', 'desc')
+               ->take(10)
+               ->offset($page)
+               ->get();
+
+        return $hotPosts;
     }
 }

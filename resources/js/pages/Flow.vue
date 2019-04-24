@@ -1,17 +1,25 @@
 <template>
     <div>
-        <b-tabs content-class="mt-3" justified>
-            <b-tab title="New" active>
-                <div class="d-flex">
-                    <div class='item' v-for="item in items">
-                        <flowItem :item="item" ></flowItem>
+        <b-tabs content-class="mt-3" justified fill>
+            <b-tab title="New" v-bind:class="{'active': isNewActive }" v-on:click="loadItems('new')">
+                 <div class="container-fluid">
+                    <div class="row flex-center">
+                        <div class='item' v-for="item in items">
+                            <flowItem :item="item" ></flowItem>
+                        </div>
                     </div>
                 </div>
-
             </b-tab>
-            <b-tab title="Hot"><p>I'm the second tab</p></b-tab>
+            <b-tab title="Hot" v-bind:class="{'active': isHotActive }" v-on:click="loadItems('hot')">
+                <div class="container-fluid">
+                    <div class="row flex-center">
+                        <div class='item' v-for="item in items">
+                            <flowItem :item="item" ></flowItem>
+                        </div>
+                    </div>
+                </div>
+            </b-tab>
         </b-tabs>
-
     </div>
 </template>
 
@@ -26,41 +34,59 @@
         data () {
             return {
                items: [],
-               titre: '',
-               description: '',
-               response: ''
+               response: '',
+               isNewActive: true,
+               isHotActive: false,
+               isLoading: false,
+               stillMoreItems: true
             }
         },
 
         async mounted() {
              this.response = await axios.get('flow/new/p=0')
              this.items = this.response.data;
+             console.log();
         },
 
         methods: {
-            refreshItems(){
-                axios.get('flow/new/p='+this.items.length)
-                .then(response => {
-                   console.log(response.data);
-                   this.items = this.items.concat(response.data);
-                })
+            async loadItems(type){
+                if ((type !== 'new' && this.isNewActive === true) || (type !== 'hot' && this.isHotActive === true)){
+                    this.items = [];
+                    this.stillMoreItems = true;
+                }
+
+                let response = await axios.get('flow/'+type+'/p='+this.items.length);
+
+                console.log(response.data);
+                if ((type === 'new' && this.isNewActive === true) || (type === 'hot' && this.isHotActive === true)){
+                    this.items = this.items.concat(response.data);
+                } else {
+                    this.items = response.data;
+                    this.isNewActive = !this.isNewActive;
+                    this.isHotActive = !this.isHotActive;
+                }
+
+                if (response.data.length === 0){
+                    this.stillMoreItems = false;
+                } else {
+                    this.isLoading = false;
+                }
+
             }
         },
 
         created(){
-        let isLoading = false;
-        let countObject = this.items.length;
+
         window.onscroll = (ev) => {
 
-            if (countObject != this.items.length){
-                countObject = this.items.length;
-                isLoading = false;
-            }
-
-            if (!isLoading){
+            if (!this.isLoading && this.stillMoreItems){
                 if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight -200) {
-                    isLoading = true;
-                    this.refreshItems();
+                    this.isLoading = true;
+                    if (this.isHotActive === true){
+                        this.loadItems('hot');
+                    } else {
+                        this.loadItems('new');
+                    }
                 }
             }
         };
@@ -69,6 +95,12 @@
 </script>
 <style>
 .item{
-    min-width: 300px;
+    box-sizing: border-box;
+    width: 300px;
+    margin-top: 10px;
+}
+.flex-center{
+    align-items: center;
+    justify-content: center;
 }
 </style>
