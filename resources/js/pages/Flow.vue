@@ -1,7 +1,7 @@
 <template>
     <div>
-        <b-tabs content-class="mt-3" justified>
-            <b-tab title="New" active>
+        <b-tabs content-class="mt-3" justified fill>
+            <b-tab title="New" v-bind:class="{'active': isNewActive }" v-on:click="loadItems('new')">
                  <div class="container-fluid">
                     <div class="row flex-center">
                         <div class='item' v-for="item in items">
@@ -10,17 +10,16 @@
                     </div>
                 </div>
             </b-tab>
-            <b-tab title="Hot">
+            <b-tab title="Hot" v-bind:class="{'active': isHotActive }" v-on:click="loadItems('hot')">
                 <div class="container-fluid">
-                   <div class="row">
-                       <div class='item' v-for="item in items">
-                           <flowItem :item="item" ></flowItem>
-                       </div>
-                   </div>
-               </div>
+                    <div class="row flex-center">
+                        <div class='item' v-for="item in items">
+                            <flowItem :item="item" ></flowItem>
+                        </div>
+                    </div>
+                </div>
             </b-tab>
         </b-tabs>
-
     </div>
 </template>
 
@@ -35,41 +34,57 @@
         data () {
             return {
                items: [],
-               titre: '',
-               description: '',
-               response: ''
+               response: '',
+               isNewActive: true,
+               isHotActive: false,
+               itemsLoaded: 'new',
+               countObject: 0,
+               stillMoreItems: true
             }
         },
 
         async mounted() {
              this.response = await axios.get('flow/new/p=0')
              this.items = this.response.data;
+             console.log();
         },
 
         methods: {
-            refreshItems(){
-                axios.get('flow/new/p='+this.items.length)
+            loadItems(type){
+                if ((type !== 'new' && this.isNewActive === true) || (type !== 'hot' && this.isHotActive === true)){
+                    this.items = [];
+                }
+
+                axios.get('flow/'+type+'/p='+this.items.length)
                 .then(response => {
-                   console.log(response.data);
-                   this.items = this.items.concat(response.data);
+                    console.log(response.data);
+                    if ((this.itemsLoaded === 'new' && this.isNewActive === true) || (this.itemsLoaded === 'hot' && this.isHotActive === true)){
+                        this.items = this.items.concat(response.data);
+                    } else {
+                        this.items = this.response.data;
+                        this.isNewActive = !this.isNewActive;
+                        this.isHotActive = !this.isHotActive;
+                    }
+
+                    if (this.response.data.length === 0){
+                        this.stillMoreItems = false;
+                    }
                 })
             }
         },
 
         created(){
         let isLoading = false;
-        let countObject = this.items.length;
         window.onscroll = (ev) => {
 
-            if (countObject != this.items.length){
-                countObject = this.items.length;
-                isLoading = false;
-            }
-
-            if (!isLoading){
+            if (!isLoading && this.stillMoreItems){
                 if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight -200) {
                     isLoading = true;
-                    this.refreshItems();
+                    if (this.isHotActive === true){
+                        this.loadItems('hot');
+                    } else {
+                        this.loadItems('new');
+                    }
                 }
             }
         };
@@ -78,6 +93,7 @@
 </script>
 <style>
 .item{
+    box-sizing: border-box;
     width: 300px;
     margin-top: 10px;
 }

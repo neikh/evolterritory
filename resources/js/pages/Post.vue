@@ -202,7 +202,7 @@
                 let img = this.before;
                 this.before = this.after;
                 this.after = img;
-                
+
                 let date = this.date1;
                 this.date1 = this.date2;
                 this.date2 = date;
