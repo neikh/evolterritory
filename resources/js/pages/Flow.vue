@@ -70,6 +70,6 @@
 </script>
 <style>
 .item{
-    min-width: 300px;
+    width: 300px;
 }
 </style>
