@@ -87,6 +87,6 @@
         </main>
 
     </div>
-    <footer>bonjour voici le footer(en php donc dans resources/views/layouts/app.blade.php)</footer>
+    <footer>© 2019 - Vincent, Allan, Benoît and Pierre - Handigital formation</footer>
 </body>
 </html>
