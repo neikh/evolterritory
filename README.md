@@ -25,9 +25,11 @@ composer install
 
 npm install
 npm install vue-resource
+```
 
-create your .env file
+rename your .env.example into .env, then modify it in function of your database setup.
 
+```bash
 php artisan key:generate
 
 php artisan storage:link
