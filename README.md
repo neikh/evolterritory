@@ -14,9 +14,9 @@ It is also possible to save your comparison as a registered users, and the lates
 in the flow page. Registered users can then vote for these comparisons.
 
 
-
 to install :
 
+```bash
 git clone https://github.com/neikh/evolterritory
 
 composer install
@@ -28,12 +28,10 @@ create your .env file
 
 php artisan key:generate
 
-create a directory /public/storage/images
-create a directory /storage/app/public/images
-
 php artisan storage:link
 
 php artisan migrate:fresh
 
 php artisan serve
 npm run watch
+```
