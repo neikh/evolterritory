@@ -44,17 +44,14 @@ class PostController extends Controller
 
         $post = new \App\Post;
         $post->id_author = Auth::id();
-        //Linux
         $post->id_pic_1 = 'images/'.$random.'.jpg';
         $post->id_pic_2 = 'images/'.$random2.'.jpg';
         $post->date1 = $request['params']['date1'];
         $post->date2 = $request['params']['date2'];
-        //Windows
-        // $post->id_pic_1 = 'images\\'.$random.'.jpg';
-        // $post->id_pic_2 = 'images\\'.$random2.'.jpg';
         $post->titre = $request['params']['titre'];
         $post->description = $request['params']['description'];
-        $post->nb_vote = 0;
+        $post->sun_vote = 0;
+        $post->cloud_vote = 0;
         $post->save();
 
         return Auth::id();
