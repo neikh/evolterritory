@@ -17,12 +17,14 @@ in the flow page. Registered users can then vote for these comparisons.
 
 to install :
 
-git clone
+git clone https://github.com/neikh/evolterritory
 
 composer install
 
 npm install
 npm install vue-resource
+
+create your .env file
 
 php artisan key:generate
 
