@@ -22,7 +22,8 @@ class Posts extends Migration
             $table->string('date2');
 			$table->string('titre');
 			$table->string('description',3000);
-			$table->integer('nb_vote');
+			$table->integer('sun_vote');
+            $table->integer('cloud_vote');
 			$table->timestamps();
 		});
     }
