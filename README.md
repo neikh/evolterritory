@@ -24,7 +24,6 @@ cd evolterritory/
 composer install
 
 npm install
-npm install vue-resource
 ```
 
 rename your .env.example into .env, then modify it in function of your database setup.
