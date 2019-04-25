@@ -1,7 +1,13 @@
 <template>
     <div class="container-fluid">
         <div id="loading" class="fixed-top" v-show="isLoading">
-            <vue-loader direction="top-right" image="https://loading.io/spinners/cloudy/index.cloudy-sky-preloader.svg" v-bind:text="loadType" text-color="#786fa6" :background="'#ea8685'" />
+            <vue-loader
+                direction="top-right"
+                image="https://loading.io/spinners/cloudy/index.cloudy-sky-preloader.svg"
+                v-bind:text="loadType"
+                text-color="#786fa6"
+                :background="'#ea8685'"
+            />
         </div>
 
         <div class="row">
@@ -10,56 +16,119 @@
                     <div class=" Adresse">
                         <div class="form-group col-md-12">
                             <label for="inputAdresse">Adresse</label>
-                            <input class="form-control" id="inputAdresse" placeholder="Adresse" v-model="street" v-on:input="clearCoordinates()">
+                            <input
+                                class="form-control"
+                                id="inputAdresse"
+                                placeholder="Adresse"
+                                v-model="street"
+                                v-on:input="clearCoordinates()"
+                            >
                         </div>
                         <div class="form-group col-md-12">
                             <label for="inputVille">Ville</label>
-                            <input class="form-control" id="inputVille" placeholder="Ville" value="grenoble" v-model="city" v-on:input="clearCoordinates()">
+                            <input
+                                class="form-control"
+                                id="inputVille"
+                                placeholder="Ville"
+                                value="grenoble"
+                                v-model="city"
+                                v-on:input="clearCoordinates()"
+                            >
                         </div>
                         <div class="form-group col-md-12">
                             <label for="inputCodePostal">Code postal</label>
-                            <input class="form-control" id="inputCodePostal" placeholder="Code postal" v-model="postalCode" v-on:input="clearCoordinates()">
+                            <input
+                                class="form-control"
+                                id="inputCodePostal"
+                                placeholder="Code postal"
+                                v-model="postalCode"
+                                v-on:input="clearCoordinates()"
+                            >
                         </div>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="inputlatitude">Latitude</label>
-                        <input type="latitude" class="form-control" id="inputLatitude" v-model="latitude">
+                        <input
+                            type="latitude"
+                            class="form-control"
+                            id="inputLatitude"
+                            v-model="latitude"
+                        >
                     </div>
                     <div class="form-group col-md-6">
                         <label for="inputLongitude">Longitude</label>
-                        <input type="longitude" class="form-control" id="inputLongitude" v-model="longitude">
+                        <input
+                            type="longitude"
+                            class="form-control"
+                            id="inputLongitude"
+                            v-model="longitude"
+                        >
                     </div>
 
                     <div class="row mx-auto">
                         <div class="form-group col-md-12">
                             <label for="inputDate1">Date 1</label>
-                            <datetime v-model="date1" input-id="inputDate1" input-class="form-control" min-datetime="2014-01-01T00:00:00.000Z" max-datetime="2017-05-01T00:00:00.000Z"></datetime>
+                            <datetime
+                                v-model="date1"
+                                input-id="inputDate1"
+                                input-class="form-control"
+                                min-datetime="2014-01-01T00:00:00.000Z"
+                                max-datetime="2017-05-01T00:00:00.000Z"
+                            ></datetime>
                             <!-- :format="{ year: 'numeric', month: 'numeric', day: 'numeric'}" -->
                         </div>
 
                         <div class="form-group col-md-12">
                             <label for="inputDate2">Date 2</label>
-                            <datetime v-model="date2" input-id="inputDate2" input-class="form-control" min-datetime="2014-01-01T00:00:00.000Z" max-datetime="2017-05-01T00:00:00.000Z"></datetime>
+                            <datetime
+                                v-model="date2"
+                                input-id="inputDate2"
+                                input-class="form-control"
+                                min-datetime="2014-01-01T00:00:00.000Z"
+                                max-datetime="2017-05-01T00:00:00.000Z"
+                            ></datetime>
                         </div>
                     </div>
 
                     <div class="justify-content-center">
-                        <button v-on:click="sub()" type="button" name="button" class="btn btn-dark">Search</button>
+                        <button
+                            v-on:click="sub()"
+                            type="button"
+                            name="button"
+                            class="btn btn-dark"
+                        >Search</button>
                     </div>
 
                     <div class="justify-content-center pl-2">
-                        <button v-on:click="saveThisVue()" type="button" name="button" class="btn btn-dark">Save</button>
+                        <button
+                            v-on:click="saveThisVue()"
+                            type="button"
+                            name="button"
+                            class="btn btn-dark"
+                        >Save</button>
                     </div>
                 </div>
                 <div class="row justify-content-center mt-3">
-                    <button v-on:click="switchImages()" type="submit" class="btn btn-dark">Switch images</button>
+                    <button
+                        v-on:click="switchImages()"
+                        type="submit"
+                        class="btn btn-dark"
+                    >Switch images</button>
                 </div>
                 <br />
                 <!-- affiche un choix si plusieurs résultats ont été trouvés -->
-                <div id="select" class="row justify-content-center pl-4 pr-4 mb-3" v-if="addressList[1]">
+                <div
+                    id="select"
+                    class="row justify-content-center pl-4 pr-4 mb-3"
+                    v-if="addressList[1]"
+                >
                     <p>Several results have been found, select one to display :</p>
                     <select v-on:change="changeSelected($event)" class="form-control">
-                        <option v-for="address in addressList" :latitude="address.lat" :longitude="address.lon">{{ address.display_name }} ({{address.type}})</option>
+                        <option
+                            v-for="address in addressList"
+                            :latitude="address.lat"
+                            :longitude="address.lon"
+                        >{{ address.display_name }} ({{address.type}})</option>
                     </select>
                 </div>
             </nav>
@@ -67,7 +136,12 @@
             <div class="col-md-8 col-lg-8 px-4" v-if="before">
                 <div class="d-inline font-weight-bold">{{date1}}</div>
                 <div class="d-inline font-weight-bold float-right">{{date2}}</div>
-                <image-compare class="img-fluid" :before="before" :after="after" :padding="{ left: 1, right: 1 }">
+                <image-compare
+                    class="img-fluid"
+                    :before="before"
+                    :after="after"
+                    :padding="{ left: 1, right: 1 }"
+                >
                     <i class="fa fa-angle-left" aria-hidden="true" slot="icon-left"></i>
                     <i class="fa fa-angle-right" aria-hidden="true" slot="icon-right"></i>
                 </image-compare>
@@ -352,8 +426,10 @@
                 }
 
                 return false;
-            },
-
+            }            
+        },
+        
+        computed: {
             clearCoordinates(){
                 this.latitude = '';
                 this.longitude = '';
