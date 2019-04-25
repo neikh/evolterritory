@@ -261,7 +261,8 @@
                 } catch(e){
                      this.$swal.fire({
                         type: 'error',
-                        title: 'Something went wrong with the NASA API. The location may not exist.',
+                        title: 'Something went wrong with the NASA API.',
+                        text: 'There may not be any picture for the location or one of the dates.',
                     })
                     this.isLoading = false;
                 }
