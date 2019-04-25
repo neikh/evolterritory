@@ -15,32 +15,31 @@
                 <div class="row justify-content-center pt-4">
                     <div class=" Adresse">
                         <div class="form-group col-md-12">
-                            <label for="inputAdresse">Adresse</label>
+                            <label for="inputAddress">Address</label>
                             <input
                                 class="form-control"
-                                id="inputAdresse"
-                                placeholder="Adresse"
+                                id="inputAddress"
+                                placeholder="Address"
                                 v-model="street"
                                 v-on:input="clearCoordinates()"
                             >
                         </div>
                         <div class="form-group col-md-12">
-                            <label for="inputVille">Ville</label>
+                            <label for="inputCity">City</label>
                             <input
                                 class="form-control"
-                                id="inputVille"
-                                placeholder="Ville"
-                                value="grenoble"
+                                id="inputCity"
+                                placeholder="City"
                                 v-model="city"
                                 v-on:input="clearCoordinates()"
                             >
                         </div>
                         <div class="form-group col-md-12">
-                            <label for="inputCodePostal">Code postal</label>
+                            <label for="inputPostalCode">Postal code</label>
                             <input
                                 class="form-control"
-                                id="inputCodePostal"
-                                placeholder="Code postal"
+                                id="inputPostalCode"
+                                placeholder="Postal code"
                                 v-model="postalCode"
                                 v-on:input="clearCoordinates()"
                             >
