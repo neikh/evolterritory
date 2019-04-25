@@ -45,7 +45,6 @@
         async mounted() {
              this.response = await axios.get('flow/new/p=0')
              this.items = this.response.data;
-             console.log();
         },
 
         methods: {

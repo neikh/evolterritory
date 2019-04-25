@@ -31,36 +31,69 @@
     </div>
 </template>
 <script>
+import { booleanLiteral } from '@babel/types';
   export default {
     props: ['item'],
      data () {
         return {
             before: 'storage/'+this.item.id_pic_1,
             after: 'storage/'+this.item.id_pic_2,
-            date1:'',
-            date2:'',
-            voteSun:0,
-            voteCloud:0,
-            sunActive: false,
-            cloudActive: false
+            date1: '',
+            date2: '',
+            voteSun: this.item.sun_vote,
+            voteCloud: this.item.cloud_vote,
+            sunActive: parseInt(this.item.sun),
+            cloudActive: parseInt(this.item.cloud),
+            id: this.item.id,
+            isVoting: false
         }
     },
     mounted(){
-        // date1 = this.item.date1
         this.date2 = this.item.date2.split('T')
         this.date1 = this.item.date1.split('T')
     },
     methods: {
-        voteClick(vote){
-            if(vote == 'sun'){
-                if(this.cloudActive){
-                    this.cloudActive = !this.cloudActive;
+        async voteClick(vote){
+
+            if (this.isVoting === false){
+                let auth = document.head.querySelector('meta[name="login-status"]').content;
+
+                if (auth === "") {
+                    this.$swal.fire({
+                        type: 'error',
+                        title: 'You have to be logged to vote for a comparison.',
+                    })
+                } else {
+
+                    if(vote === 'sun'){
+                        if(this.cloudActive){
+                            this.cloudActive = !this.cloudActive;
+                        }
+                        this.sunActive = !this.sunActive;
+
+                    }
+
+                    if(vote === 'cloud'){
+                        if(this.sunActive){
+                            this.sunActive = !this.sunActive;
+                        }
+                        this.cloudActive = !this.cloudActive;
+                    }
+
+                    this.isVoting = true;
+                    let response = await axios.post('/flow/vote' , {
+                        params: {
+                            id: this.id,
+                            sun: this.sunActive,
+                            cloud: this.cloudActive
+                        }
+                    });
+
+                    this.voteSun = response.data[0];
+                    this.voteCloud = response.data[1];
+                    this.isVoting = false;
                 }
-                this.sunActive = !this.sunActive;
-            }
-            if(vote == 'cloud'){
-                if(this.sunActive){this.sunActive = !this.sunActive}
-                this.cloudActive = !this.cloudActive
+
             }
         }
     }
