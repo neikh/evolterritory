@@ -42,15 +42,16 @@ import { booleanLiteral } from '@babel/types';
             date2: '',
             voteSun: this.item.sun_vote,
             voteCloud: this.item.cloud_vote,
-            sunActive: parseInt(this.item.sun),
-            cloudActive: parseInt(this.item.cloud),
+            sunActive: Boolean(parseInt(this.item.sun)),
+            cloudActive: Boolean(parseInt(this.item.cloud)),
             id: this.item.id,
             isVoting: false
         }
     },
     mounted(){
-        this.date2 = this.item.date2.split('T')
-        this.date1 = this.item.date1.split('T')
+        this.date2 = this.item.date2.split('T');
+        this.date1 = this.item.date1.split('T');
+        console.log(this.item);
     },
     methods: {
         async voteClick(vote){

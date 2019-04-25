@@ -31,10 +31,26 @@ class FlowController extends Controller
     {
         //récupérer les 10 derniers post par date
         $newPosts = \App\Post::orderBy('id', 'desc')
-                ->join('votes', 'id_voteur', '=',  Auth::id())
-                ->take(10)
-                ->offset($page)
-                ->get();
+                    ->leftJoin('votes', function($join){
+                        $join->on('id_voteur', '=', Auth::id());
+                        $join->on('posts.id', '=', 'votes.id_post');
+                    })
+                    ->take(10)
+                    ->offset($page)
+                    ->get([
+                        'posts.id as id',
+                        'posts.id_author as id_author',
+                        'posts.id_pic_1 as id_pic_1',
+                        'posts.id_pic_2 as id_pic_2',
+                        'posts.date1 as date1',
+                        'posts.date2 as date2',
+                        'posts.titre as titre',
+                        'posts.description as description',
+                        'posts.sun_vote as sun_vote',
+                        'posts.cloud_vote as cloud_vote',
+                        'votes.sun as sun',
+                        'votes.cloud as cloud'
+                    ]);
 
         return $newPosts;
     }
@@ -42,11 +58,27 @@ class FlowController extends Controller
     public function getHot($page = 0)
     {
         //récupérer les 10 derniers post par nombre de vote
-        $hotPosts = \App\Post::orderBy('sun_vote', 'desc')
-                ->join('votes', 'id_voteur', '=',  Auth::id())
+        $hotPosts = \App\Post::orderBy('posts.sun_vote', 'desc')
+                ->leftJoin('votes', function($join){
+                    $join->on('id_voteur', '=', Auth::id());
+                    $join->on('posts.id', '=', 'votes.id_post');
+                })
                 ->take(10)
                 ->offset($page)
-                ->get();
+                ->get([
+                    'posts.id as id',
+                    'posts.id_author as id_author',
+                    'posts.id_pic_1 as id_pic_1',
+                    'posts.id_pic_2 as id_pic_2',
+                    'posts.date1 as date1',
+                    'posts.date2 as date2',
+                    'posts.titre as titre',
+                    'posts.description as description',
+                    'posts.sun_vote as sun_vote',
+                    'posts.cloud_vote as cloud_vote',
+                    'votes.sun as sun',
+                    'votes.cloud as cloud'
+                ]);
 
         return $hotPosts;
     }
@@ -55,16 +87,16 @@ class FlowController extends Controller
 
         $vote = \App\Vote::updateOrCreate(
             [ 'id_voteur' => Auth::id(), 'id_post' => $request['params']['id'] ],
-            ['sun' => $request['params']['sun'], 'cloud' => $request['params']['cloud'] ]
+            [ 'sun' => $request['params']['sun'], 'cloud' => $request['params']['cloud'] ]
         );
 
-        $sun_votes = \App\Vote::where('sun', '=', true)->count();
-        $cloud_votes = \App\Vote::where('cloud', '=', true)->count();
+        $sun_votes = \App\Vote::where('sun', '=', true)->where('id_post', '=', $request['params']['id'])->count();
+        $cloud_votes = \App\Vote::where('cloud', '=', true)->where('id_post', '=', $request['params']['id'])->count();
 
         $post = \App\Post::where('id', $request['params']['id'])
             ->update([
                 'sun_vote' =>  $sun_votes,
-                'cloud_vote' =>  $cloud_votes,
+                'cloud_vote' =>  $cloud_votes
             ]);
 
         return ([$sun_votes,  $cloud_votes]);
