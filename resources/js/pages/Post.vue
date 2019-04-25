@@ -208,7 +208,7 @@
                     if (this.latitude == "" || this.longitude == ""){
                         this.addressList = [];
                         this.addressList.sort();
-                        
+
                         await this.geocoding();
                     }
 
@@ -426,10 +426,7 @@
                 }
 
                 return false;
-            }            
-        },
-        
-        computed: {
+            },
             clearCoordinates(){
                 this.latitude = '';
                 this.longitude = '';
