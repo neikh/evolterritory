@@ -15,7 +15,7 @@
                 <div class="row justify-content-center pt-4">
                     <div class=" Adresse">
                         <div class="form-group col-md-12">
-                            <label for="inputAdresse">Adresse</label>
+                            <label for="inputAdresse">Address</label>
                             <input
                                 class="form-control"
                                 id="inputAdresse"
@@ -25,7 +25,7 @@
                             >
                         </div>
                         <div class="form-group col-md-12">
-                            <label for="inputVille">Ville</label>
+                            <label for="inputVille">City</label>
                             <input
                                 class="form-control"
                                 id="inputVille"
@@ -36,7 +36,7 @@
                             >
                         </div>
                         <div class="form-group col-md-12">
-                            <label for="inputCodePostal">Code postal</label>
+                            <label for="inputCodePostal">Postal code</label>
                             <input
                                 class="form-control"
                                 id="inputCodePostal"
