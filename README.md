@@ -1,4 +1,4 @@
-# evolterritory
+# Evolterritory
 
 This project is an exercise done during our formation.
 
