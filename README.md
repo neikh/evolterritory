@@ -19,6 +19,8 @@ to install :
 ```bash
 git clone https://github.com/neikh/evolterritory
 
+cd evolterritory/
+
 composer install
 
 npm install
