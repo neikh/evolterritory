@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div id="loading" class="fixed-top" v-show="isLoading">
-            <vue-loader direction="top-right" image="https://loading.io/spinners/coolors/lg.palette-rotating-ring-loader.gif" text="Loading..." text-color="#786fa6" :background="'#ea8685'" />
+            <vue-loader direction="top-right" image="https://loading.io/spinners/cloudy/index.cloudy-sky-preloader.svg" text="Loading..." text-color="#786fa6" :background="'#ea8685'" />
         </div>
         <h1>Today, let's discover the city of {{city}}</h1>
         <div class="row justify-content-center">
