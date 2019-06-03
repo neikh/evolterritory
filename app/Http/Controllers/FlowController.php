@@ -32,8 +32,8 @@ class FlowController extends Controller
         //récupérer les 10 derniers post par date
         $newPosts = \App\Post::orderBy('id', 'desc')
                     ->leftJoin('votes', function($join){
-                        $join->on('id_voteur', '=', Auth::id());
                         $join->on('posts.id', '=', 'votes.id_post');
+                        //$join->on('id_voteur', '=', Auth::id());
                     })
                     ->take(10)
                     ->offset($page)
@@ -60,7 +60,7 @@ class FlowController extends Controller
         //récupérer les 10 derniers post par nombre de vote
         $hotPosts = \App\Post::orderBy('posts.sun_vote', 'desc')
                 ->leftJoin('votes', function($join){
-                    $join->on('id_voteur', '=', Auth::id());
+                    //$join->on('id_voteur', '=', Auth::id());
                     $join->on('posts.id', '=', 'votes.id_post');
                 })
                 ->take(10)

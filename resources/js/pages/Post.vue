@@ -127,6 +127,7 @@
                             v-for="address in addressList"
                             :latitude="address.lat"
                             :longitude="address.lon"
+                            v-bind:key="address.display_name"
                         >{{ address.display_name }} ({{address.type}})</option>
                     </select>
                 </div>
